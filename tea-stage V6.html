@@ -1,0 +1,2351 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#050504">
+<title>The Tea Stage — Premium Café & Lounge · Chitwan</title>
+<meta name="description" content="Chitwan's most loved luxury café. Artisan teas, specialty coffee, curated cuisine, premium hookah, and an unforgettable ambiance at The Tea Stage.">
+<meta property="og:title" content="The Tea Stage — Premium Café · Chitwan">
+<meta property="og:description" content="Artisan teas, specialty coffee, and curated cuisine. Experience luxury at The Tea Stage, Chitwan.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=90&w=1200">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════════════════ */
+:root {
+  --gold:#e8c96a; --gold-l:#f5e098; --gold-w:#d4a84b; --gold-d:#c29438;
+  --gold-dim:rgba(232,201,106,.10); --gold-glow:rgba(232,201,106,.18);
+  --gold-b:rgba(232,201,106,.16); --gold-b2:rgba(232,201,106,.30);
+  --bg:#050504; --bg2:#0a0a08; --bg3:#111009; --bg4:#181610; --bg5:#1f1d16;
+  --glass:rgba(12,11,9,.84); --glass2:rgba(6,6,4,.96);
+  --text:#f2ede4; --text2:#c8c2b5; --muted:#6e6860;
+  --border:rgba(255,255,255,.05); --card:rgba(15,14,12,.95);
+  --shadow:rgba(0,0,0,.88); --green:#25D366; --red:#e74c3c;
+  --nav-h:68px; --drawer-w:460px;
+  --r:20px; --r-sm:12px; --r-xs:8px;
+  --spring:cubic-bezier(.34,1.56,.64,1);
+  --smooth:cubic-bezier(.25,1,.5,1);
+  --snappy:cubic-bezier(.4,0,.2,1);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+[data-theme="light"] {
+  --bg:#f6f1e7; --bg2:#ede8da; --bg3:#e4dece; --bg4:#d9d3c2; --bg5:#cec7b5;
+  --glass:rgba(246,241,231,.90); --glass2:rgba(237,232,218,.97);
+  --text:#16120a; --text2:#38311f; --muted:#7a7260;
+  --border:rgba(0,0,0,.07); --card:rgba(237,232,218,.97);
+  --shadow:rgba(0,0,0,.12);
+  --gold-b:rgba(212,168,75,.22); --gold-b2:rgba(212,168,75,.38);
+  --gold-dim:rgba(212,168,75,.09); --gold-glow:rgba(212,168,75,.14);
+}
+
+/* ══════════════════════════════════════════════════
+   RESET
+══════════════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui,sans-serif;overflow-x:hidden;min-height:100dvh;transition:background .4s var(--snappy),color .4s var(--snappy);-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--gold-w);border-radius:4px}
+img{display:block;max-width:100%;border:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit;color:inherit}
+input,select,textarea{font-family:inherit;color:var(--text)}
+a{text-decoration:none;color:inherit}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.022;pointer-events:none;z-index:9999;mix-blend-mode:overlay}
+
+/* ══════════════════════════════════════════════════
+   PAGE SYSTEM
+══════════════════════════════════════════════════ */
+.page{display:none;min-height:100dvh;padding-top:var(--nav-h)}
+.page.active{display:block;animation:pageIn .5s var(--ease) both}
+#page-home{padding-top:0}
+@keyframes pageIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════════════════ */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);background:var(--glass);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);border-bottom:1px solid var(--gold-b);transition:background .4s,border-color .4s,transform .4s var(--smooth)}
+.navbar.hidden{transform:translateY(-100%)}
+.navbar.scrolled{background:var(--glass2);border-bottom-color:var(--gold-b2)}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;height:100%;padding:0 clamp(16px,4vw,48px);gap:clamp(10px,2vw,28px)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:clamp(1.25rem,2.2vw,1.55rem);font-weight:600;color:var(--gold);letter-spacing:1px;white-space:nowrap;flex-shrink:0;cursor:pointer;transition:opacity .2s}
+.nav-logo:hover{opacity:.8}
+.nav-logo em{font-style:italic;font-weight:300;color:var(--text2)}
+.nav-links{display:flex;align-items:center;gap:2px;margin-left:auto}
+.nav-link{padding:8px clamp(9px,1.2vw,15px);font-size:clamp(10.5px,1vw,12.5px);font-weight:500;color:var(--muted);letter-spacing:.4px;border-radius:8px;transition:color .2s,background .2s;white-space:nowrap;cursor:pointer}
+.nav-link:hover{color:var(--text2);background:rgba(255,255,255,.04)}
+.nav-link.active{color:var(--gold)}
+[data-theme="light"] .nav-link:hover{background:rgba(0,0,0,.04)}
+.nav-actions{display:flex;align-items:center;gap:8px;margin-left:clamp(6px,1vw,18px)}
+.nav-icon-btn{position:relative;width:42px;height:42px;border-radius:12px;background:var(--bg3);border:1px solid var(--gold-b);display:flex;align-items:center;justify-content:center;font-size:17px;transition:background .2s,border-color .2s,transform .3s var(--spring)}
+.nav-icon-btn:hover{background:var(--gold-dim);border-color:var(--gold-b2);transform:scale(1.06)}
+.nav-cart-count{position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:var(--gold);color:#000;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0);transition:opacity .3s var(--spring),transform .3s var(--spring)}
+.nav-cart-count.show{opacity:1;transform:scale(1)}
+.theme-btn{width:42px;height:42px;border-radius:12px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .2s,transform .3s var(--spring)}
+.theme-btn:hover{background:var(--bg4);transform:scale(1.06)}
+.hamburger{display:none;width:42px;height:42px;border-radius:12px;background:var(--bg3);border:1px solid var(--border);flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.ham-line{width:18px;height:1.5px;background:var(--text2);border-radius:2px;transition:transform .3s var(--smooth),opacity .3s}
+.mobile-nav{position:fixed;top:0;left:0;right:0;bottom:0;z-index:790;background:var(--glass2);backdrop-filter:blur(30px) saturate(160%);-webkit-backdrop-filter:blur(30px) saturate(160%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transform:translateY(-105%);transition:transform .5s var(--smooth)}
+.mobile-nav.open{transform:translateY(0)}
+.mobile-nav-link{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,8vw,2.8rem);font-weight:600;color:var(--muted);letter-spacing:.5px;padding:8px 24px;transition:color .2s,transform .2s;cursor:pointer}
+.mobile-nav-link:hover{color:var(--gold);transform:translateX(8px)}
+.mobile-nav-sep{width:40px;height:1px;background:var(--gold-b);margin:8px 0}
+
+/* ══════════════════════════════════════════════════
+   SHARED COMPONENTS
+══════════════════════════════════════════════════ */
+.section-label{font-family:'Cinzel',serif;font-size:clamp(8px,.9vw,10px);letter-spacing:clamp(3px,.7vw,6px);text-transform:uppercase;color:var(--gold);opacity:.85;display:block;margin-bottom:12px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4.5vw,3.5rem);font-weight:600;line-height:1.05;color:var(--text)}
+.section-title em{color:var(--gold);font-style:italic;font-weight:300}
+.section-sub{color:var(--muted);font-size:clamp(12px,1.3vw,14px);line-height:1.75;margin-top:12px}
+.gold-line{width:48px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-w),transparent);margin:20px 0}
+.page-wrap{max-width:1320px;margin:0 auto;padding:0 clamp(18px,5%,60px)}
+
+/* Back Button */
+.back-btn{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--muted);padding:9px 18px 9px 14px;border-radius:50px;border:1px solid var(--border);background:var(--bg3);transition:color .25s,border-color .25s,background .25s,transform .25s var(--spring);cursor:pointer;margin-bottom:28px}
+.back-btn:hover{color:var(--gold);border-color:var(--gold-b);background:var(--gold-dim);transform:translateX(-3px)}
+.back-btn svg{width:14px;height:14px;flex-shrink:0;transition:transform .25s var(--spring)}
+.back-btn:hover svg{transform:translateX(-3px)}
+
+/* Breadcrumbs */
+.breadcrumbs{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-bottom:20px;flex-wrap:wrap}
+.breadcrumb{cursor:pointer;transition:color .2s}.breadcrumb:hover{color:var(--gold)}
+.breadcrumb.current{color:var(--text2);cursor:default}
+.breadcrumb-sep{opacity:.4;font-size:10px}
+
+/* Badges */
+.badge{display:inline-block;font-family:'Cinzel',serif;font-size:8px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:linear-gradient(135deg,var(--gold),var(--gold-w));color:#000;box-shadow:0 2px 10px rgba(232,201,106,.35)}
+.badge-new{background:linear-gradient(135deg,#27ae60,#1a8a49);color:#fff;box-shadow:0 2px 10px rgba(39,174,96,.4)}
+.badge-trending{background:linear-gradient(135deg,#7b5ea7,#5b3d8a);color:#fff;box-shadow:0 2px 10px rgba(123,94,167,.4)}
+.badge-special{background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff}
+.badge-hot{background:linear-gradient(135deg,#f39c12,#e67e22);color:#fff}
+.badge-favourite{background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:clamp(12px,1.8vh,15px) clamp(22px,3vw,32px);border-radius:50px;font-size:clamp(11px,1.2vw,13px);font-weight:600;letter-spacing:.5px;transition:transform .3s var(--spring),box-shadow .3s var(--smooth),background .25s,color .25s;touch-action:manipulation;min-height:46px;cursor:pointer}
+.btn:active{transform:scale(.95)!important}
+.btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-w));color:#000;box-shadow:0 6px 28px rgba(232,201,106,.28)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(232,201,106,.42)}
+.btn-outline{background:var(--gold-dim);backdrop-filter:blur(16px);color:var(--gold);border:1px solid var(--gold-b)}
+.btn-outline:hover{background:var(--gold);color:#000;transform:translateY(-3px)}
+.btn-ghost{background:rgba(255,255,255,.05);color:var(--text2);border:1px solid var(--border)}
+.btn-ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-2px)}
+[data-theme="light"] .btn-ghost{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.08)}
+.btn-green{background:linear-gradient(135deg,#25D366,#1da84f);color:#fff;box-shadow:0 6px 28px rgba(37,211,102,.25)}
+.btn-green:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(37,211,102,.4)}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}
+
+/* Section divider */
+.sec-divider{display:flex;align-items:center;gap:16px;margin:clamp(16px,3vh,28px) 0}
+.sec-divider::before,.sec-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.sec-divider span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2.5px;color:var(--muted);text-transform:uppercase}
+
+/* Skeleton */
+.skeleton{background:linear-gradient(90deg,var(--bg3) 25%,var(--bg4) 50%,var(--bg3) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:var(--r-xs)}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ══════════════════════════════════════════════════
+   HOME — HERO
+══════════════════════════════════════════════════ */
+.hero{position:relative;height:100svh;min-height:680px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:hidden}
+.hero-bg{position:absolute;inset:-60px;background:url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=90&w=2400&auto=format&fit=crop') center/cover no-repeat;filter:brightness(.15) saturate(.4);will-change:transform;z-index:0}
+[data-theme="light"] .hero-bg{filter:brightness(.3) saturate(.6)}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 90% 60% at 50% 0%,rgba(232,201,106,.07) 0%,transparent 65%),linear-gradient(180deg,rgba(5,5,4,.05) 0%,rgba(5,5,4,.96) 100%)}
+[data-theme="light"] .hero-overlay{background:radial-gradient(ellipse 90% 60% at 50% 0%,rgba(232,201,106,.1) 0%,transparent 65%),linear-gradient(180deg,rgba(246,241,231,.04) 0%,rgba(246,241,231,.94) 100%)}
+.hero-overlay::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-w),transparent);opacity:.3}
+.hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:clamp(10px,2vh,18px);padding:0 clamp(20px,5vw,60px)}
+.hero-inner > *{opacity:0;transform:translateY(28px);animation:heroReveal .9s var(--smooth) forwards}
+.hero-inner > *:nth-child(1){animation-delay:.05s}
+.hero-inner > *:nth-child(2){animation-delay:.18s}
+.hero-inner > *:nth-child(3){animation-delay:.28s}
+.hero-inner > *:nth-child(4){animation-delay:.40s}
+.hero-inner > *:nth-child(5){animation-delay:.50s}
+.hero-inner > *:nth-child(6){animation-delay:.60s}
+@keyframes heroReveal{to{opacity:1;transform:translateY(0)}}
+.logo-ring{width:clamp(100px,14vw,140px);height:clamp(100px,14vw,140px);border-radius:50%;border:1.5px solid rgba(232,201,106,.5);padding:5px;box-shadow:0 0 0 6px rgba(232,201,106,.05),0 0 50px rgba(232,201,106,.3),0 0 120px rgba(232,201,106,.1);animation:ringPulse 5s ease-in-out infinite}
+@keyframes ringPulse{0%,100%{box-shadow:0 0 0 6px rgba(232,201,106,.05),0 0 50px rgba(232,201,106,.3),0 0 120px rgba(232,201,106,.1)}50%{box-shadow:0 0 0 10px rgba(232,201,106,.08),0 0 80px rgba(232,201,106,.4),0 0 160px rgba(232,201,106,.15)}}
+.logo-ring img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.hero-eyebrow{font-family:'Cinzel',serif;font-size:clamp(8px,.9vw,10px);letter-spacing:clamp(4px,1vw,8px);text-transform:uppercase;color:var(--gold);opacity:.85}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,7vw,6rem);font-weight:600;line-height:1;color:var(--text);letter-spacing:-1px}
+.hero-title em{color:var(--gold);font-style:italic;font-weight:300}
+.hero-sub{color:var(--text2);font-size:clamp(13px,1.4vw,15px);line-height:1.75;max-width:500px;opacity:.8}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+.hero-scroll{position:absolute;bottom:clamp(24px,4vh,40px);left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;cursor:pointer;opacity:0;animation:heroReveal .9s .8s var(--smooth) forwards}
+.hero-scroll span{font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold-w),transparent);animation:scrollLine 2s ease-in-out infinite}
+@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* Stats strip */
+.stats-strip{background:var(--bg2);border-top:1px solid var(--gold-b);border-bottom:1px solid var(--border)}
+.stats-inner{max-width:1320px;margin:0 auto;padding:clamp(24px,4vh,36px) clamp(18px,5%,60px);display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:640px){.stats-inner{grid-template-columns:repeat(2,1fr)}}
+.stat-item{text-align:center}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.5rem);font-weight:700;color:var(--gold);line-height:1}
+.stat-label{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.5px}
+
+/* ══════════════════════════════════════════════════
+   HOME — SECTIONS
+══════════════════════════════════════════════════ */
+.home-section{padding:clamp(60px,9vh,110px) 0}
+.home-section-head{margin-bottom:clamp(28px,4vh,48px)}
+.home-section-head.center{text-align:center}
+.home-section-head.between{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+@media(max-width:640px){.home-section-head.between{flex-direction:column;align-items:flex-start}}
+
+/* Featured products grid */
+.featured-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(240px,28vw,300px),1fr));gap:clamp(14px,2vw,22px)}
+
+/* Product card */
+.prod-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:border-color .3s,transform .4s var(--smooth),box-shadow .4s var(--smooth);position:relative}
+.prod-card:hover{border-color:var(--gold-b);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.5)}
+[data-theme="light"] .prod-card:hover{box-shadow:0 24px 60px rgba(0,0,0,.12)}
+.prod-card-img{aspect-ratio:4/3;overflow:hidden;position:relative}
+.prod-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--smooth)}
+.prod-card:hover .prod-card-img img{transform:scale(1.07)}
+.prod-card-badge{position:absolute;top:12px;left:12px;z-index:2}
+.prod-card-body{padding:clamp(14px,2vw,18px)}
+.prod-card-type{font-size:10px;color:var(--muted);letter-spacing:.5px;margin-bottom:4px}
+.prod-card-name{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,1.8vw,1.25rem);font-weight:700;color:var(--text);margin-bottom:6px}
+.prod-card-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.prod-card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.prod-card-price{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:var(--gold)}
+.prod-card-add{width:34px;height:34px;border-radius:50%;background:var(--gold-dim);border:1px solid var(--gold-b);color:var(--gold);font-size:18px;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .3s var(--spring)}
+.prod-card-add:hover{background:var(--gold);color:#000;transform:scale(1.15)}
+
+/* Category cards */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(140px,18vw,200px),1fr));gap:clamp(12px,1.8vw,18px)}
+.cat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:clamp(20px,3vw,28px) 16px;text-align:center;cursor:pointer;transition:border-color .3s,transform .4s var(--smooth),background .3s}
+.cat-card:hover{border-color:var(--gold-b);background:var(--gold-dim);transform:translateY(-4px)}
+.cat-icon{font-size:clamp(1.8rem,3.5vw,2.5rem);margin-bottom:12px;display:block}
+.cat-label{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,1.6vw,1.1rem);font-weight:700;color:var(--text);margin-bottom:4px}
+.cat-count{font-size:11px;color:var(--muted)}
+
+/* Special offer */
+.offer-card{background:var(--card);border:1px solid var(--gold-b);border-radius:var(--r);padding:clamp(24px,4vw,40px);display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;overflow:hidden;position:relative}
+@media(max-width:600px){.offer-card{grid-template-columns:1fr}}
+.offer-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 90% 50%,rgba(232,201,106,.08) 0%,transparent 70%);pointer-events:none}
+.offer-badge{display:inline-block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3);color:#e74c3c;margin-bottom:14px}
+.offer-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:700;color:var(--text);margin-bottom:8px}
+.offer-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:20px}
+.offer-visual{font-size:clamp(3rem,7vw,5rem);flex-shrink:0;opacity:.5}
+
+/* Reviews */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(260px,30vw,360px),1fr));gap:clamp(14px,2vw,22px)}
+.review-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:clamp(20px,3vw,28px);transition:border-color .3s}
+.review-card:hover{border-color:var(--gold-b)}
+.review-stars{color:var(--gold);font-size:13px;margin-bottom:12px;letter-spacing:2px}
+.review-text{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,1.6vw,1.1rem);font-weight:400;font-style:italic;color:var(--text2);line-height:1.7;margin-bottom:16px}
+.review-author{display:flex;align-items:center;gap:10px}
+.review-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--bg4),var(--bg5));border:1px solid var(--gold-b);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.review-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
+.review-meta{font-size:10px;color:var(--muted)}
+
+/* Gallery strip */
+.gallery-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(6px,1vw,10px)}
+@media(max-width:640px){.gallery-strip{grid-template-columns:repeat(2,1fr)}}
+.gallery-strip-item{aspect-ratio:1;border-radius:var(--r-sm);overflow:hidden;cursor:pointer;position:relative}
+.gallery-strip-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--smooth)}
+.gallery-strip-item:hover img{transform:scale(1.08)}
+.gallery-strip-item::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.3);opacity:0;transition:opacity .3s}
+.gallery-strip-item:hover::after{opacity:1}
+
+/* CTA section */
+.cta-section{background:var(--bg2);border-top:1px solid var(--gold-b);border-bottom:1px solid var(--gold-b);padding:clamp(60px,9vh,110px) 0;text-align:center}
+.cta-inner{max-width:680px;margin:0 auto;padding:0 clamp(18px,5%,60px)}
+
+/* ══════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════ */
+.footer{background:var(--bg2);border-top:1px solid var(--gold-b);padding:clamp(50px,7vh,80px) 0 0}
+.footer-inner{max-width:1320px;margin:0 auto;padding:0 clamp(18px,5%,60px);display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:clamp(30px,5vw,60px)}
+@media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.footer-inner{grid-template-columns:1fr}}
+.footer-brand .nav-logo{display:block;margin-bottom:14px;font-size:1.4rem}
+.footer-brand p{font-size:13px;color:var(--muted);line-height:1.75;max-width:280px;margin-bottom:20px}
+.footer-socials{display:flex;gap:8px}
+.footer-social{width:36px;height:36px;border-radius:10px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;transition:background .2s,border-color .2s,transform .3s var(--spring)}
+.footer-social:hover{background:var(--gold-dim);border-color:var(--gold-b);transform:scale(1.1)}
+.footer-col-title{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-link{font-size:13px;color:var(--muted);transition:color .2s;cursor:pointer}
+.footer-link:hover{color:var(--gold)}
+.footer-hours-item{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);padding:5px 0;border-bottom:1px solid var(--border)}
+.footer-hours-item:last-child{border-bottom:none}
+.footer-hours-item strong{color:var(--text2)}
+.footer-bottom{margin-top:clamp(30px,5vh,50px);padding:clamp(16px,2.5vh,20px) clamp(18px,5%,60px);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.footer-copy{font-size:11px;color:var(--muted)}
+.footer-copy strong{color:var(--gold)}
+
+/* ══════════════════════════════════════════════════
+   MENU PAGE
+══════════════════════════════════════════════════ */
+.menu-hero{padding:clamp(40px,6vh,70px) 0 clamp(30px,4vh,50px);text-align:center}
+.search-wrap{position:relative;max-width:560px;margin:24px auto 0}
+.search-input{width:100%;padding:14px 48px 14px 20px;background:var(--bg3);border:1px solid var(--gold-b);border-radius:50px;color:var(--text);font-size:14px;outline:none;transition:border-color .25s,box-shadow .25s}
+.search-input::placeholder{color:var(--muted)}
+.search-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-glow)}
+.search-icon{position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px;pointer-events:none}
+.search-clear{position:absolute;right:48px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:18px;display:none;cursor:pointer;transition:color .2s}
+.search-clear:hover{color:var(--gold)}
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin:clamp(20px,3vh,32px) 0}
+.filter-pill{padding:8px 16px;border-radius:50px;font-size:12px;font-weight:500;color:var(--muted);background:var(--bg3);border:1px solid var(--border);transition:all .2s;cursor:pointer;white-space:nowrap}
+.filter-pill:hover{color:var(--text2);border-color:var(--gold-b)}
+.filter-pill.active{background:var(--gold-dim);border-color:var(--gold-b);color:var(--gold)}
+.menu-cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(260px,30vw,340px),1fr));gap:clamp(14px,2vw,22px);margin-top:20px}
+.menu-cat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:border-color .3s,transform .4s var(--smooth);display:grid;grid-template-columns:120px 1fr}
+.menu-cat-card:hover{border-color:var(--gold-b);transform:translateY(-4px)}
+.menu-cat-img{aspect-ratio:1;overflow:hidden}
+.menu-cat-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--smooth)}
+.menu-cat-card:hover .menu-cat-img img{transform:scale(1.06)}
+.menu-cat-body{padding:clamp(14px,2vw,20px);display:flex;flex-direction:column;justify-content:center}
+.menu-cat-icon{font-size:1.4rem;margin-bottom:8px}
+.menu-cat-name{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,1.8vw,1.3rem);font-weight:700;color:var(--text);margin-bottom:4px}
+.menu-cat-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:10px}
+.menu-cat-count{font-size:11px;color:var(--gold);font-family:'Cinzel',serif;letter-spacing:.5px}
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);display:none}
+.no-results.show{display:block}
+.no-results-icon{font-size:3rem;margin-bottom:12px;opacity:.3}
+
+/* ══════════════════════════════════════════════════
+   CATEGORY PAGE
+══════════════════════════════════════════════════ */
+.cat-page-hero{padding:clamp(30px,5vh,60px) 0 clamp(20px,3vh,36px)}
+.cat-page-banner{border-radius:var(--r);overflow:hidden;height:clamp(160px,25vw,280px);position:relative;margin-bottom:clamp(24px,3.5vh,40px)}
+.cat-page-banner img{width:100%;height:100%;object-fit:cover;filter:brightness(.4)}
+.cat-page-banner-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(20px,3vw,32px);background:linear-gradient(to top,rgba(5,5,4,.9) 0%,transparent 60%)}
+.cat-page-banner-icon{font-size:2.5rem;margin-bottom:8px}
+.cat-page-banner-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3.5vw,2.5rem);font-weight:700;color:var(--text)}
+.cat-page-banner-sub{font-size:13px;color:var(--text2);margin-top:4px}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(220px,24vw,280px),1fr));gap:clamp(12px,1.8vw,18px);margin-top:24px}
+
+/* ══════════════════════════════════════════════════
+   PRODUCT DETAIL PAGE
+══════════════════════════════════════════════════ */
+.prod-detail-wrap{padding:clamp(30px,5vh,60px) 0}
+.prod-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);align-items:start}
+@media(max-width:860px){.prod-detail-grid{grid-template-columns:1fr}}
+.prod-detail-img-wrap{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/3}
+.prod-detail-img-wrap img{width:100%;height:100%;object-fit:cover}
+.prod-detail-img-wrap::after{content:'';position:absolute;inset:0;border:1.5px solid var(--gold-b2);border-radius:var(--r);pointer-events:none}
+.prod-detail-badge-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.prod-detail-name{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.1}
+.prod-detail-type{font-size:12px;color:var(--muted);margin-bottom:14px;letter-spacing:.5px}
+.prod-detail-desc{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:24px}
+.prod-detail-price-row{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.prod-detail-price{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;color:var(--gold)}
+.prod-detail-price small{font-size:.55em;color:var(--muted);font-weight:400}
+
+/* Info tabs */
+.info-tabs{display:flex;gap:2px;background:var(--bg3);border-radius:10px;padding:4px;margin-bottom:20px}
+.info-tab{flex:1;padding:8px 12px;font-size:12px;font-weight:500;color:var(--muted);border-radius:8px;text-align:center;cursor:pointer;transition:background .2s,color .2s;white-space:nowrap}
+.info-tab.active{background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold-b)}
+.info-panel{display:none}
+.info-panel.active{display:block}
+
+/* Ingredients */
+.ingr-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.ingr-chip{font-size:12px;padding:5px 13px;border-radius:20px;background:var(--bg3);border:1px solid var(--border);color:var(--text2)}
+
+/* Nutrition */
+.nutrition-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+.nutrition-table tr{border-bottom:1px solid var(--border)}
+.nutrition-table td{padding:8px 4px}
+.nutrition-table td:first-child{color:var(--muted)}
+.nutrition-table td:last-child{text-align:right;font-weight:600;color:var(--text)}
+
+/* Allergen */
+.allergen-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.allergen-chip{font-size:11px;padding:4px 12px;border-radius:20px;background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.25);color:#e74c3c}
+
+/* Customization */
+.cust-section{background:var(--bg2);border:1px solid var(--gold-b);border-radius:var(--r);padding:clamp(16px,2.5vw,24px);margin:24px 0}
+.cust-section-title{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;opacity:.8}
+.cust-options{display:flex;flex-wrap:wrap;gap:8px}
+.cust-option{padding:7px 14px;border-radius:50px;font-size:12px;font-weight:500;color:var(--muted);background:var(--bg3);border:1px solid var(--border);cursor:pointer;transition:all .2s;user-select:none}
+.cust-option:hover{border-color:var(--gold-b);color:var(--text2)}
+.cust-option.selected{background:var(--gold-dim);border-color:var(--gold-b);color:var(--gold)}
+.cust-option.remove-option.selected{background:rgba(231,76,60,.1);border-color:rgba(231,76,60,.3);color:#e74c3c}
+.cust-slider-wrap{margin-top:8px}
+.cust-slider-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:6px}
+.cust-slider{width:100%;-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;background:linear-gradient(to right,var(--gold) 0%,var(--gold) 50%,var(--bg5) 50%,var(--bg5) 100%);outline:none;cursor:pointer}
+.cust-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;box-shadow:0 2px 8px rgba(232,201,106,.4)}
+.notes-area{width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--gold-b);border-radius:var(--r-xs);color:var(--text);font-size:13px;resize:none;outline:none;transition:border-color .25s,box-shadow .25s;min-height:72px}
+.notes-area:focus{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-glow)}
+
+/* Addons */
+.addon-list{display:flex;flex-direction:column;gap:8px}
+.addon-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-xs);cursor:pointer;transition:border-color .2s}
+.addon-item:hover{border-color:var(--gold-b)}
+.addon-item.selected{border-color:var(--gold-b);background:var(--gold-dim)}
+.addon-label{font-size:13px;color:var(--text2)}
+.addon-price{font-size:12px;color:var(--gold);font-weight:600}
+.addon-check{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;transition:background .2s,border-color .2s;flex-shrink:0}
+.addon-item.selected .addon-check{background:var(--gold);border-color:var(--gold);color:#000}
+
+/* Qty + Add to cart */
+.prod-action-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.qty-control{display:flex;align-items:center;gap:4px;background:var(--bg3);border:1px solid var(--gold-b);border-radius:50px;padding:4px}
+.qty-btn{width:32px;height:32px;border-radius:50%;color:var(--gold);font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.qty-btn:hover{background:var(--gold-dim)}
+.qty-num{min-width:28px;text-align:center;font-size:14px;font-weight:700;color:var(--text)}
+
+/* Related */
+.related-section{padding:clamp(40px,6vh,70px) 0}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(180px,20vw,240px),1fr));gap:clamp(12px,1.8vw,18px);margin-top:24px}
+
+/* ══════════════════════════════════════════════════
+   CART PAGE
+══════════════════════════════════════════════════ */
+.cart-page-head{padding:clamp(30px,5vh,60px) 0 clamp(20px,3vh,36px);border-bottom:1px solid var(--border);margin-bottom:clamp(24px,4vh,40px)}
+.cart-page-layout{display:grid;grid-template-columns:1fr 380px;gap:clamp(20px,3vw,40px);align-items:start}
+@media(max-width:900px){.cart-page-layout{grid-template-columns:1fr}}
+.cart-items-list{display:flex;flex-direction:column;gap:14px}
+.cart-page-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:clamp(14px,2vw,20px);display:grid;grid-template-columns:80px 1fr;gap:14px;transition:border-color .25s;animation:itemSlide .3s var(--smooth)}
+.cart-page-item:hover{border-color:var(--gold-b)}
+@keyframes itemSlide{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
+.cart-page-img{border-radius:var(--r-sm);overflow:hidden;aspect-ratio:1}
+.cart-page-img img{width:100%;height:100%;object-fit:cover}
+.cart-page-item-name{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,1.8vw,1.15rem);font-weight:700;color:var(--text);margin-bottom:3px}
+.cart-page-item-type{font-size:10px;color:var(--muted);margin-bottom:6px}
+.cart-page-item-cust{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px;max-height:48px;overflow:hidden}
+.cart-page-item-footer{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cart-page-item-price{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--gold)}
+.cart-page-item-controls{display:flex;align-items:center;gap:8px}
+.cpi-qty{display:flex;align-items:center;gap:2px;background:var(--bg3);border:1px solid var(--gold-b);border-radius:50px}
+.cpiq-btn{width:28px;height:28px;color:var(--gold);font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background .18s}
+.cpiq-btn:hover{background:var(--gold-dim)}
+.cpiq-num{min-width:22px;text-align:center;font-size:13px;font-weight:700;color:var(--text)}
+.cpi-remove{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);color:var(--muted);font-size:13px;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;cursor:pointer}
+.cpi-remove:hover{background:var(--red);color:#fff;border-color:var(--red)}
+
+/* Order summary card */
+.order-summary-card{background:var(--card);border:1px solid var(--gold-b);border-radius:var(--r);padding:clamp(20px,3vw,28px);position:sticky;top:calc(var(--nav-h) + 20px)}
+.summary-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--gold);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.summary-line{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:10px}
+.summary-line.total{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--text);margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+.summary-line.total span:last-child{color:var(--gold)}
+.order-form-field{margin-bottom:14px}
+.order-form-label{display:block;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:6px}
+.order-form-input,.order-form-select{width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--gold-b);border-radius:var(--r-xs);color:var(--text);font-size:13px;outline:none;transition:border-color .25s,box-shadow .25s}
+.order-form-input:focus,.order-form-select:focus{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-glow)}
+.order-type-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.ott-btn{padding:10px;border-radius:var(--r-xs);background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-size:12px;font-weight:500;text-align:center;cursor:pointer;transition:all .2s}
+.ott-btn.active{background:var(--gold-dim);border-color:var(--gold-b);color:var(--gold)}
+.cart-empty{text-align:center;padding:80px 20px;color:var(--muted)}
+.cart-empty-icon{font-size:4rem;margin-bottom:16px;opacity:.2}
+.cart-empty-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--text2);margin-bottom:8px}
+.cart-empty-sub{font-size:13px;margin-bottom:24px}
+
+/* ══════════════════════════════════════════════════
+   ABOUT PAGE
+══════════════════════════════════════════════════ */
+.about-hero-section{position:relative;height:55svh;min-height:400px;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center}
+.about-hero-bg{position:absolute;inset:-40px;background:url('https://images.unsplash.com/photo-1559056199-641a0ac8b55e?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;filter:brightness(.2) saturate(.4)}
+.about-hero-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,4,.05) 0%,rgba(5,5,4,.92) 100%)}
+[data-theme="light"] .about-hero-ov{background:linear-gradient(180deg,rgba(246,241,231,.04) 0%,rgba(246,241,231,.9) 100%)}
+.about-hero-inner{position:relative;z-index:2;padding:0 clamp(20px,5vw,60px)}
+.about-content{padding:clamp(60px,9vh,110px) 0}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:center}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr}}
+.about-img{border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;position:relative}
+.about-img img{width:100%;height:100%;object-fit:cover}
+.about-img::before{content:'';position:absolute;inset:0;border:1.5px solid var(--gold-b2);border-radius:var(--r);z-index:1;pointer-events:none}
+.about-text p{font-size:clamp(13px,1.4vw,14.5px);color:var(--text2);line-height:1.8;margin-bottom:18px}
+.values-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(220px,26vw,300px),1fr));gap:clamp(14px,2vw,22px);margin-top:clamp(28px,4vh,44px)}
+.value-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:clamp(22px,3vw,30px);transition:border-color .3s,transform .4s var(--smooth)}
+.value-card:hover{border-color:var(--gold-b);transform:translateY(-4px)}
+.value-icon{font-size:2rem;margin-bottom:14px}
+.value-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:8px}
+.value-desc{font-size:13px;color:var(--muted);line-height:1.7}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(200px,22vw,260px),1fr));gap:clamp(14px,2vw,22px);margin-top:clamp(28px,4vh,44px)}
+.team-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;text-align:center;padding:clamp(24px,3.5vw,34px) 20px;transition:border-color .3s,transform .4s var(--smooth)}
+.team-card:hover{border-color:var(--gold-b);transform:translateY(-5px)}
+.team-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--bg4),var(--bg5));border:2px solid var(--gold-b);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:2rem}
+.team-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:4px}
+.team-role{font-size:11px;color:var(--muted)}
+
+/* ══════════════════════════════════════════════════
+   GALLERY PAGE
+══════════════════════════════════════════════════ */
+.gallery-hero-section{padding:clamp(40px,6vh,70px) 0 clamp(24px,3.5vh,40px);text-align:center}
+.gallery-masonry{columns:clamp(200px,22vw,280px) auto;gap:clamp(8px,1.2vw,12px);margin-top:20px}
+.gallery-item{break-inside:avoid;margin-bottom:clamp(8px,1.2vw,12px);border-radius:var(--r-sm);overflow:hidden;cursor:pointer;position:relative}
+.gallery-item img{width:100%;display:block;transition:transform .5s var(--smooth)}
+.gallery-item:hover img{transform:scale(1.04)}
+.gallery-item::after{content:'🔍';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.5rem;background:rgba(0,0,0,.4);opacity:0;transition:opacity .3s}
+.gallery-item:hover::after{opacity:1}
+
+/* Lightbox */
+.lightbox{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.lightbox.open{opacity:1;pointer-events:all}
+.lightbox-img{max-width:90vw;max-height:85vh;border-radius:var(--r-sm);object-fit:contain}
+.lightbox-close{position:absolute;top:20px;right:24px;font-size:22px;color:var(--text2);cursor:pointer;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.1);transition:background .2s}
+.lightbox-close:hover{background:rgba(255,255,255,.2)}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);font-size:2rem;color:var(--text2);cursor:pointer;width:50px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.1);transition:background .2s}
+.lightbox-nav:hover{background:rgba(255,255,255,.2)}
+.lightbox-prev{left:20px}
+.lightbox-next{right:20px}
+
+/* ══════════════════════════════════════════════════
+   CONTACT PAGE
+══════════════════════════════════════════════════ */
+.contact-hero-section{padding:clamp(40px,6vh,70px) 0 clamp(24px,3.5vh,40px);text-align:center}
+.contact-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(30px,5vw,60px);padding:clamp(30px,5vh,60px) 0}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
+.contact-form-group{margin-bottom:18px}
+.contact-label{display:block;font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px}
+.contact-input{width:100%;padding:12px 16px;background:var(--bg3);border:1px solid var(--gold-b);border-radius:var(--r-xs);color:var(--text);font-size:13px;outline:none;transition:border-color .25s,box-shadow .25s}
+.contact-input:focus{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-glow)}
+.contact-textarea{min-height:120px;resize:none}
+.contact-info-card{background:var(--card);border:1px solid var(--gold-b);border-radius:var(--r);padding:clamp(24px,3.5vw,36px)}
+.contact-info-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--gold);margin-bottom:24px}
+.contact-info-item{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start}
+.contact-info-icon{width:36px;height:36px;border-radius:10px;background:var(--gold-dim);border:1px solid var(--gold-b);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.contact-info-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.contact-info-value{font-size:13px;color:var(--text2);line-height:1.6}
+.hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin-top:8px}
+.hours-item{display:flex;flex-direction:column;gap:2px}
+.hours-day{font-size:10px;color:var(--muted)}
+.hours-time{font-size:12px;color:var(--text2);font-weight:500}
+
+/* ══════════════════════════════════════════════════
+   FAQ PAGE
+══════════════════════════════════════════════════ */
+.faq-hero-section{padding:clamp(40px,6vh,70px) 0 clamp(24px,3.5vh,40px);text-align:center}
+.faq-list{max-width:760px;margin:0 auto;padding:clamp(20px,3vh,40px) 0}
+.faq-item{border:1px solid var(--border);border-radius:var(--r-sm);margin-bottom:10px;overflow:hidden;transition:border-color .3s}
+.faq-item.open{border-color:var(--gold-b)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:clamp(16px,2.5vw,20px);cursor:pointer;font-size:clamp(13px,1.4vw,15px);font-weight:500;color:var(--text);gap:12px;transition:color .2s}
+.faq-q:hover{color:var(--gold)}
+.faq-item.open .faq-q{color:var(--gold)}
+.faq-arrow{font-size:14px;color:var(--muted);flex-shrink:0;transition:transform .3s var(--smooth)}
+.faq-item.open .faq-arrow{transform:rotate(180deg);color:var(--gold)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s var(--smooth),padding .3s}
+.faq-item.open .faq-a{max-height:400px;padding:0 clamp(16px,2.5vw,20px) clamp(16px,2.5vw,20px)}
+.faq-a-inner{font-size:13px;color:var(--muted);line-height:1.8}
+
+/* ══════════════════════════════════════════════════
+   CART DRAWER
+══════════════════════════════════════════════════ */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:1900;opacity:0;pointer-events:none;transition:opacity .38s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.cart-overlay.open{opacity:1;pointer-events:all}
+.cart-drawer{position:fixed;top:0;right:0;width:var(--drawer-w);max-width:100vw;height:100vh;height:100dvh;z-index:2000;background:var(--glass2);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);border-left:1px solid var(--gold-b);display:flex;flex-direction:column;transform:translateX(105%);transition:transform .46s var(--smooth);box-shadow:-28px 0 80px rgba(0,0,0,.6);padding-bottom:env(safe-area-inset-bottom)}
+.cart-drawer.open{transform:translateX(0)}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:clamp(18px,3vh,24px) clamp(18px,3vw,24px) clamp(14px,2.5vh,18px);border-bottom:1px solid var(--border);flex-shrink:0}
+.drawer-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,2.2vw,1.5rem);font-weight:700;color:var(--gold);display:flex;align-items:center;gap:10px}
+.drawer-close{width:36px;height:36px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .22s,color .22s;cursor:pointer}
+.drawer-close:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.drawer-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--muted);font-size:14px}
+.drawer-empty-icon{font-size:56px;opacity:.18}
+.drawer-empty-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--text2);font-weight:600}
+.drawer-items{flex:1;overflow-y:auto;padding:12px clamp(14px,3vw,20px);display:flex;flex-direction:column;gap:10px;scrollbar-width:thin;scrollbar-color:var(--gold-w) transparent}
+.drawer-item{display:flex;gap:12px;align-items:flex-start;padding:clamp(12px,2vw,16px);background:var(--bg3);border:1px solid var(--border);border-radius:var(--r-sm);transition:border-color .25s;animation:itemSlide .3s var(--smooth)}
+.drawer-item:hover{border-color:var(--gold-b)}
+.drawer-item-img{width:58px;height:58px;border-radius:10px;overflow:hidden;flex-shrink:0}
+.drawer-item-img img{width:100%;height:100%;object-fit:cover}
+.drawer-item-info{flex:1;min-width:0}
+.drawer-item-name{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,1.6vw,1.1rem);font-weight:700;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.drawer-item-variant{font-size:10px;color:var(--muted);margin-bottom:8px;line-height:1.4}
+.drawer-item-controls{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.drawer-item-price{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:var(--gold)}
+.drawer-item-qty{display:flex;align-items:center;gap:2px;background:var(--bg4);border:1px solid var(--gold-b);border-radius:50px}
+.dqbtn{width:28px;height:28px;background:transparent;color:var(--gold);font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .18s;border-radius:50%}
+.dqbtn:hover{background:var(--gold-dim)}
+.dqnum{min-width:22px;text-align:center;font-size:13px;font-weight:700;color:var(--text)}
+.drawer-item-remove{width:26px;height:26px;border-radius:50%;flex-shrink:0;background:transparent;border:1px solid var(--border);color:var(--muted);font-size:12px;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s,border-color .2s;margin-top:auto;cursor:pointer}
+.drawer-item-remove:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.drawer-footer{padding:clamp(14px,2.5vh,20px) clamp(18px,3vw,24px);border-top:1px solid var(--border);flex-shrink:0}
+.invoice-line{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:8px}
+.invoice-line.total{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,2vw,1.4rem);font-weight:700;color:var(--text);margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.invoice-line.total span:last-child{color:var(--gold)}
+.drawer-wa-btn{width:100%;margin-top:14px;padding:14px;border-radius:50px;background:linear-gradient(135deg,#25D366,#1da84f);color:#fff;font-size:14px;font-weight:700;letter-spacing:.4px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 6px 28px rgba(37,211,102,.28);transition:transform .3s var(--spring),box-shadow .3s}
+.drawer-wa-btn:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(37,211,102,.42)}
+.drawer-view-cart-btn{width:100%;margin-top:8px;padding:11px;border-radius:50px;background:var(--gold-dim);border:1px solid var(--gold-b);color:var(--gold);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:background .2s,color .2s}
+.drawer-view-cart-btn:hover{background:var(--gold);color:#000}
+
+/* ══════════════════════════════════════════════════
+   FLOATING BUTTONS
+══════════════════════════════════════════════════ */
+.fab-group{position:fixed;bottom:clamp(20px,4vh,32px);right:clamp(16px,3vw,28px);z-index:600;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.fab{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:transform .3s var(--spring),box-shadow .3s,opacity .3s;position:relative}
+.fab:hover{transform:scale(1.1);box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.fab-top{background:var(--bg4);border:1px solid var(--gold-b);color:var(--gold);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s var(--spring)}
+.fab-top.show{opacity:1;pointer-events:all}
+.fab-bell{background:linear-gradient(135deg,var(--bg4),var(--bg5));border:1px solid var(--border);color:var(--text2)}
+.fab-bell.ringing{animation:ring .4s ease}
+@keyframes ring{0%,100%{transform:rotate(0)}25%{transform:rotate(-20deg)}75%{transform:rotate(20deg)}}
+.fab-wa{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;text-decoration:none}
+.fab-cart{background:linear-gradient(135deg,var(--gold),var(--gold-w));color:#000;font-size:20px}
+.fab-cart-badge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;border-radius:50%;background:#e74c3c;color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center}
+
+/* ══════════════════════════════════════════════════
+   MODALS
+══════════════════════════════════════════════════ */
+.modal-overlay{position:fixed;inset:0;z-index:2500;background:rgba(0,0,0,.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:var(--glass2);border:1px solid var(--gold-b);border-radius:var(--r);padding:clamp(28px,5vw,44px);max-width:460px;width:100%;text-align:center;transform:scale(.95) translateY(20px);transition:transform .35s var(--spring);box-shadow:0 30px 80px rgba(0,0,0,.7)}
+.modal-overlay.open .modal-box{transform:scale(1) translateY(0)}
+.modal-icon{font-size:2.8rem;margin-bottom:16px}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:700;color:var(--text);margin-bottom:8px}
+.modal-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:22px}
+.modal-input{width:100%;padding:12px 16px;background:var(--bg3);border:1px solid var(--gold-b);border-radius:var(--r-xs);color:var(--text);font-size:14px;text-align:center;letter-spacing:2px;outline:none;transition:border-color .25s,box-shadow .25s;margin-bottom:18px}
+.modal-input:focus{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-glow)}
+.modal-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modal-btn{padding:12px;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.modal-cancel{background:var(--bg3);border:1px solid var(--border);color:var(--muted)}
+.modal-cancel:hover{border-color:var(--gold-b);color:var(--text2)}
+.modal-confirm{background:linear-gradient(135deg,var(--gold),var(--gold-w));color:#000;border:none}
+.modal-confirm:hover{transform:scale(1.02);box-shadow:0 8px 24px rgba(232,201,106,.4)}
+
+/* Toast */
+.toast-wrap{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);z-index:4000;pointer-events:none}
+.toast{background:var(--bg3);border:1px solid var(--gold-b);border-radius:50px;padding:10px 22px;font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;box-shadow:0 8px 30px rgba(0,0,0,.5);opacity:0;transform:translateY(20px);transition:opacity .35s var(--spring),transform .35s var(--spring)}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.success{border-color:rgba(39,174,96,.4);background:rgba(39,174,96,.1);color:#4ade80}
+.toast.error{border-color:rgba(231,76,60,.4);background:rgba(231,76,60,.1);color:#f87171}
+
+/* ══════════════════════════════════════════════════
+   SEARCH RESULTS
+══════════════════════════════════════════════════ */
+.search-results-section{margin-top:24px;display:none}
+.search-results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(220px,24vw,280px),1fr));gap:clamp(12px,1.8vw,18px)}
+
+/* ══════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════ */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .cat-page-banner{height:clamp(140px,40vw,200px)}
+  .prod-detail-grid{gap:24px}
+  .cart-page-layout{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .featured-grid{grid-template-columns:1fr}
+  .gallery-strip{grid-template-columns:repeat(2,1fr)}
+  .prod-action-bar{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════════ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="navigate('home')">The Tea <em>Stage</em></div>
+    <div class="nav-links">
+      <div class="nav-link active" data-page="home" onclick="navigate('home')">Home</div>
+      <div class="nav-link" data-page="menu" onclick="navigate('menu')">Menu</div>
+      <div class="nav-link" data-page="about" onclick="navigate('about')">About</div>
+      <div class="nav-link" data-page="gallery" onclick="navigate('gallery')">Gallery</div>
+      <div class="nav-link" data-page="contact" onclick="navigate('contact')">Contact</div>
+      <div class="nav-link" data-page="faq" onclick="navigate('faq')">FAQ</div>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-btn" id="themeBtn" title="Toggle Theme">🌙</button>
+      <button class="nav-icon-btn" onclick="openCart()" title="Cart">
+        🛒
+        <span class="nav-cart-count" id="navCartCount">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+        <div class="ham-line" id="hl1"></div>
+        <div class="ham-line" id="hl2"></div>
+        <div class="ham-line" id="hl3"></div>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-link" onclick="navigate('home');closeMobileNav()">Home</div>
+  <div class="mobile-nav-sep"></div>
+  <div class="mobile-nav-link" onclick="navigate('menu');closeMobileNav()">Menu</div>
+  <div class="mobile-nav-sep"></div>
+  <div class="mobile-nav-link" onclick="navigate('about');closeMobileNav()">About</div>
+  <div class="mobile-nav-sep"></div>
+  <div class="mobile-nav-link" onclick="navigate('gallery');closeMobileNav()">Gallery</div>
+  <div class="mobile-nav-sep"></div>
+  <div class="mobile-nav-link" onclick="navigate('contact');closeMobileNav()">Contact</div>
+  <div class="mobile-nav-sep"></div>
+  <div class="mobile-nav-link" onclick="navigate('faq');closeMobileNav()">FAQ</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-bg" id="heroParallax"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-inner">
+      <div class="logo-ring">
+        <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=400&auto=format&fit=crop" alt="The Tea Stage">
+      </div>
+      <span class="hero-eyebrow">Est. 2020 · Chitwan, Nepal</span>
+      <h1 class="hero-title">The Tea <em>Stage</em></h1>
+      <p class="hero-sub">Where every cup tells a story. Premium café, artisan teas, specialty coffee, and curated cuisine in the heart of Chitwan.</p>
+      <div class="hero-btns">
+        <button class="btn btn-primary" onclick="navigate('menu')">Explore Menu ✦</button>
+        <button class="btn btn-outline" onclick="navigate('about')">Our Story</button>
+      </div>
+    </div>
+    <div class="hero-scroll" onclick="document.getElementById('home-stats').scrollIntoView({behavior:'smooth'})">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Stats Strip -->
+  <div class="stats-strip" id="home-stats">
+    <div class="stats-inner">
+      <div class="stat-item reveal"><div class="stat-num">50+</div><div class="stat-label">Menu Items</div></div>
+      <div class="stat-item reveal reveal-delay-1"><div class="stat-num">5K+</div><div class="stat-label">Happy Guests/Month</div></div>
+      <div class="stat-item reveal reveal-delay-2"><div class="stat-num">4.9★</div><div class="stat-label">Average Rating</div></div>
+      <div class="stat-item reveal reveal-delay-3"><div class="stat-num">4+</div><div class="stat-label">Years of Excellence</div></div>
+    </div>
+  </div>
+
+  <!-- Featured Products -->
+  <section class="home-section">
+    <div class="page-wrap">
+      <div class="home-section-head between">
+        <div>
+          <span class="section-label">Handpicked for you</span>
+          <h2 class="section-title">Featured <em>Favourites</em></h2>
+        </div>
+        <button class="btn btn-ghost" onclick="navigate('menu')" style="flex-shrink:0">View Full Menu →</button>
+      </div>
+      <div class="featured-grid" id="featured-grid"></div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="home-section" style="background:var(--bg2);padding-top:clamp(50px,7vh,90px);padding-bottom:clamp(50px,7vh,90px)">
+    <div class="page-wrap">
+      <div class="home-section-head center reveal">
+        <span class="section-label">Browse by category</span>
+        <h2 class="section-title">What Are You <em>Craving?</em></h2>
+      </div>
+      <div class="cat-grid" id="home-cat-grid"></div>
+    </div>
+  </section>
+
+  <!-- Special Offer -->
+  <section class="home-section">
+    <div class="page-wrap">
+      <div class="offer-card reveal">
+        <div>
+          <div class="offer-badge">🔥 Limited Time Offer</div>
+          <div class="offer-title">Afternoon Tea Set</div>
+          <p class="offer-desc">Pair any premium tea with a dessert of your choice and save Rs 50. Perfect for a cosy afternoon. Available 2PM–5PM daily.</p>
+          <button class="btn btn-primary" onclick="navigate('menu')">Order Now</button>
+        </div>
+        <div class="offer-visual">☕</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="home-section" style="background:var(--bg2);padding-top:clamp(50px,7vh,90px);padding-bottom:clamp(50px,7vh,90px)">
+    <div class="page-wrap">
+      <div class="home-section-head center reveal">
+        <span class="section-label">What people are saying</span>
+        <h2 class="section-title">Guest <em>Reviews</em></h2>
+      </div>
+      <div class="reviews-grid" id="reviews-grid"></div>
+    </div>
+  </section>
+
+  <!-- Gallery Strip -->
+  <section class="home-section">
+    <div class="page-wrap">
+      <div class="home-section-head between">
+        <div class="reveal">
+          <span class="section-label">Our space & creations</span>
+          <h2 class="section-title">The <em>Gallery</em></h2>
+        </div>
+        <button class="btn btn-ghost" onclick="navigate('gallery')" style="flex-shrink:0">View All →</button>
+      </div>
+      <div class="gallery-strip" id="gallery-strip"></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-inner">
+      <span class="section-label reveal">Come visit us</span>
+      <h2 class="section-title reveal" style="margin-bottom:16px">Experience The <em>Tea Stage</em></h2>
+      <p class="section-sub reveal" style="margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto">Chitwan's most loved luxury café. Open daily from 7AM to 10PM. Walk in or order online through WhatsApp.</p>
+      <div class="hero-btns reveal">
+        <button class="btn btn-primary" onclick="navigate('menu')">Order Now</button>
+        <a class="btn btn-outline" href="https://wa.me/9779802890267" target="_blank" rel="noopener">💬 WhatsApp Us</a>
+      </div>
+    </div>
+  </div>
+
+  <footer id="home-footer" class="footer"></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MENU PAGE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-menu">
+  <div class="page-wrap">
+    <div class="menu-hero">
+      <span class="section-label">What would you like?</span>
+      <h1 class="section-title">Our <em>Menu</em></h1>
+      <p class="section-sub">From artisan teas to premium hookah — everything crafted with care.</p>
+      <div class="search-wrap">
+        <input class="search-input" type="text" id="menu-search" placeholder="Search teas, coffee, food…" oninput="handleMenuSearch(this.value)">
+        <span class="search-icon">🔍</span>
+        <span class="search-clear" id="search-clear" onclick="clearSearch()">✕</span>
+      </div>
+    </div>
+    <div class="filter-bar" id="filter-bar"></div>
+    <div class="menu-cat-grid" id="menu-cat-grid"></div>
+    <div class="search-results-section" id="search-results-wrap">
+      <div class="no-results" id="no-results">
+        <div class="no-results-icon">🔍</div>
+        <p>No items found. Try a different search.</p>
+      </div>
+      <div class="search-results-grid" id="search-results-grid"></div>
+    </div>
+    <div style="height:80px"></div>
+  </div>
+  <footer id="menu-footer" class="footer"></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     CATEGORY PAGE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-category">
+  <div class="page-wrap">
+    <div class="cat-page-hero">
+      <button class="back-btn" onclick="goBack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>
+        Back
+      </button>
+      <div class="breadcrumbs" id="cat-breadcrumbs"></div>
+      <div class="cat-page-banner" id="cat-banner">
+        <img id="cat-banner-img" src="" alt="">
+        <div class="cat-page-banner-overlay">
+          <div class="cat-page-banner-icon" id="cat-banner-icon"></div>
+          <div class="cat-page-banner-title" id="cat-banner-title"></div>
+          <div class="cat-page-banner-sub" id="cat-banner-sub"></div>
+        </div>
+      </div>
+      <div class="filter-bar" id="cat-filter-bar"></div>
+    </div>
+    <div class="products-grid" id="products-grid"></div>
+    <div class="no-results" id="cat-no-results">
+      <div class="no-results-icon">🍵</div>
+      <p>No items match this filter.</p>
+    </div>
+    <div style="height:80px"></div>
+  </div>
+  <footer id="cat-footer" class="footer"></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PRODUCT DETAIL PAGE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-product">
+  <div class="page-wrap prod-detail-wrap">
+    <button class="back-btn" onclick="goBack()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>
+      Back
+    </button>
+    <div class="breadcrumbs" id="prod-breadcrumbs"></div>
+    <div class="prod-detail-grid">
+      <!-- Left: Image -->
+      <div>
+        <div class="prod-detail-img-wrap">
+          <img id="prod-detail-img" src="" alt="">
+        </div>
+        <!-- Info Tabs -->
+        <div class="info-tabs" style="margin-top:20px">
+          <div class="info-tab active" onclick="switchTab('ingredients',this)">Ingredients</div>
+          <div class="info-tab" onclick="switchTab('nutrition',this)">Nutrition</div>
+          <div class="info-tab" onclick="switchTab('pairings',this)">Pairings</div>
+        </div>
+        <div class="info-panel active" id="tab-ingredients">
+          <div class="ingr-chips" id="prod-ingredients"></div>
+        </div>
+        <div class="info-panel" id="tab-nutrition">
+          <table class="nutrition-table" id="prod-nutrition"></table>
+          <div class="allergen-chips" id="prod-allergens" style="margin-top:14px"></div>
+        </div>
+        <div class="info-panel" id="tab-pairings">
+          <div class="ingr-chips" id="prod-pairings" style="margin-top:10px"></div>
+        </div>
+      </div>
+
+      <!-- Right: Details -->
+      <div>
+        <div class="prod-detail-badge-row" id="prod-badge-row"></div>
+        <h1 class="prod-detail-name" id="prod-detail-name"></h1>
+        <div class="prod-detail-type" id="prod-detail-type"></div>
+        <p class="prod-detail-desc" id="prod-detail-desc"></p>
+        <div class="prod-detail-price-row">
+          <div class="prod-detail-price" id="prod-detail-price"></div>
+        </div>
+
+        <!-- Customization -->
+        <div id="prod-customization"></div>
+
+        <!-- Qty + Add -->
+        <div class="prod-action-bar" style="margin-top:20px">
+          <div class="qty-control">
+            <button class="qty-btn" onclick="changeDetailQty(-1)">−</button>
+            <span class="qty-num" id="detail-qty">1</span>
+            <button class="qty-btn" onclick="changeDetailQty(1)">+</button>
+          </div>
+          <button class="btn btn-primary" id="prod-add-btn" onclick="addDetailToCart()" style="flex:1">Add to Cart · <span id="prod-add-price">Rs 0</span></button>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--muted)">💬 Special requests? Add a note below.</div>
+        <textarea class="notes-area" id="prod-notes" placeholder="e.g. Less sugar, extra ginger…" style="margin-top:8px"></textarea>
+      </div>
+    </div>
+
+    <!-- Related Products -->
+    <section class="related-section">
+      <div class="home-section-head">
+        <span class="section-label">You might also like</span>
+        <h2 class="section-title" style="font-size:clamp(1.5rem,3vw,2rem)">Related <em>Items</em></h2>
+      </div>
+      <div class="related-grid" id="related-grid"></div>
+    </section>
+  </div>
+  <footer id="prod-footer" class="footer"></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     CART PAGE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-cart">
+  <div class="page-wrap">
+    <div class="cart-page-head">
+      <button class="back-btn" onclick="goBack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>
+        Continue Shopping
+      </button>
+      <h1 class="section-title">Your <em>Cart</em></h1>
+    </div>
+    <div id="cart-page-empty" class="cart-empty" style="display:none">
+      <div class="cart-empty-icon">🛒</div>
+      <div class="cart-empty-title">Your cart is empty</div>
+      <p class="cart-empty-sub">Add something delicious to get started!</p>
+      <button class="btn btn-primary" onclick="navigate('menu')">Browse Menu</button>
+    </div>
+    <div id="cart-page-content" class="cart-page-layout">
+      <div>
+        <div class="cart-items-list" id="cart-page-items"></div>
+      </div>
+      <div>
+        <div class="order-summary-card">
+          <div class="summary-title">🧾 Order Summary</div>
+          <div class="order-type-toggle">
+            <div class="ott-btn active" id="ott-dine" onclick="setOrderType('dine')">🪑 Dine In</div>
+            <div class="ott-btn" id="ott-takeaway" onclick="setOrderType('takeaway')">🥡 Takeaway</div>
+          </div>
+          <div class="order-form-field" id="table-field">
+            <label class="order-form-label">Table Number</label>
+            <input class="order-form-input" type="text" id="cart-table" placeholder="e.g. 5" inputmode="numeric">
+          </div>
+          <div class="order-form-field">
+            <label class="order-form-label">Your Name</label>
+            <input class="order-form-input" type="text" id="cart-name" placeholder="Your name">
+          </div>
+          <div class="order-form-field" style="display:none" id="phone-field">
+            <label class="order-form-label">Phone Number</label>
+            <input class="order-form-input" type="tel" id="cart-phone" placeholder="+977 …">
+          </div>
+          <div class="sec-divider"><span>Invoice</span></div>
+          <div class="summary-line"><span>Subtotal</span><span id="cart-subtotal">Rs 0</span></div>
+          <div class="summary-line"><span>Service Charge (10%)</span><span id="cart-service">Rs 0</span></div>
+          <div class="summary-line total"><span>Total</span><span id="cart-total">Rs 0</span></div>
+          <button class="btn btn-green" style="width:100%;margin-top:16px;justify-content:center" onclick="placeOrderWA()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Place Order via WhatsApp
+          </button>
+          <button class="drawer-view-cart-btn" onclick="openCart()" style="margin-top:8px">View Cart Drawer</button>
+        </div>
+      </div>
+    </div>
+    <div style="height:60px"></div>
+  </div>
+  <footer id="cartpage-footer" class="footer"></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     ABOUT PAGE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <section class="about-hero-section">
+    <div class="about-hero-bg"></div>
+    <div class="about-hero-ov"></div>
+    <div class="about-hero-inner" style="position:relative;z-index:2">
+      <span class="section-label">Our story</span>
+      <h1 class="section-title">About <em>Us</em></h1>
+      <p class="section-sub" style="max-width:520px;margin:12px auto 0">Built on passion, served with love — every detail at The Tea Stage is crafted with intention.</p>
+    </div>
+  </section>
+  <div class="about-content">
+    <div class="page-wrap">
+      <div class="about-grid reveal">
+        <div class="about-img">
+          <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&w=1200&auto=format&fit=crop" alt="The Tea Stage interior" loading="lazy">
+        </div>
+        <div class="about-text">
+          <span class="section-label">Est. 2020, Chitwan</span>
+          <h2 class="section-title" style="margin-bottom:24px">Where Every Cup <em>Tells a Story</em></h2>
+          <p>The Tea Stage was born in 2020 from a simple yet powerful vision: to create a café experience that goes beyond just food and drinks. Nestled in the heart of Chitwan, we set out to build a sanctuary — a place where every detail, from the aroma of freshly brewed masala chai to the warm glow of our lighting, is crafted with intention.</p>
+          <p>Our founders believed that a great café isn't just about what's on the menu — it's about the feeling you carry with you when you leave. That feeling of warmth, of belonging, of having experienced something genuinely special.</p>
+          <p>Today, The Tea Stage is Chitwan's most loved premium café, welcoming thousands of guests each month and building memories one cup at a time.</p>
+          <div style="margin-top:28px">
+            <button class="btn btn-outline" onclick="navigate('menu')">Explore Our Menu</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:clamp(70px,10vh,110px)">
+        <div class="reveal" style="text-align:center;margin-bottom:clamp(28px,4vh,44px)">
+          <span class="section-label">What we stand for</span>
+          <h2 class="section-title">Our <em>Values</em></h2>
+        </div>
+        <div class="values-grid">
+          <div class="value-card reveal"><div class="value-icon">🌿</div><div class="value-title">Quality First</div><div class="value-desc">We source only the finest ingredients — from Nepali tea gardens to premium international brands. Quality is never compromised.</div></div>
+          <div class="value-card reveal reveal-delay-1"><div class="value-icon">🎶</div><div class="value-title">Atmosphere Matters</div><div class="value-desc">Every element of our space — the music, the lighting, the décor — is curated to create an unforgettable sensory experience.</div></div>
+          <div class="value-card reveal reveal-delay-2"><div class="value-icon">🤝</div><div class="value-title">Community Driven</div><div class="value-desc">We're more than a café — we're a gathering space for Chitwan's creative community. Conversations, connections, and culture.</div></div>
+          <div class="value-card reveal reveal-delay-3"><div class="value-icon">♻️</div><div class="value-title">Sustainable Choices</div><div class="value-desc">From eco-friendly packaging to local sourcing, we're committed to making choices that are better for our planet and community.</div></div>
+        </div>
+      </div>
+
+      <div style="margin-top:clamp(70px,10vh,110px)">
+        <div class="reveal" style="text-align:center;margin-bottom:clamp(28px,4vh,44px)">
+          <span class="section-label">The people behind the magic</span>
+          <h2 class="section-title">Meet Our <em>Team</em></h2>
+        </div>
+        <div class="team-grid">
+          <div class="team-card reveal"><div class="team-avatar">👨‍🍳</div><div class="team-name">Arjun Thapa</div><div class="team-role">Founder & Head Chef</div></div>
+          <div class="team-card reveal reveal-delay-1"><div class="team-avatar">☕</div><div class="team-name">Sunita Rai</div><div class="team-role">Head Barista</div></div>
+          <div class="team-card reveal reveal-delay-2"><div class="team-avatar">🎵</div><div class="team-name">Rohan KC</div><div class="team-role">Ambiance & Events</div></div>
+          <div class="team-card reveal reveal-delay-3"><div class="team-avatar">🌿</div><div class="team-name">Priya Gurung</div><div class="team-role">Tea Sommelier</div></div>
+        </div>
+      </div>
+      <div style="height:80px"></div>
+    </div>
+  </div>
+  <footer id="about-footer" class="footer"></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     GALLERY PAGE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-gallery">
+  <div class="page-wrap">
+    <div class="gallery-hero-section">
+      <span class="section-label">Our space & creations</span>
+      <h1 class="section-title">The <em>Gallery</em></h1>
+      <p class="section-sub">A visual journey through the spaces, flavours, and moments that define The Tea Stage.</p>
+    </div>
+    <div class="gallery-masonry" id="gallery-masonry"></div>
+    <div style="height:80px"></div>
+  </div>
+  <footer id="gallery-footer" class="footer"></footer>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" id="lightbox-close" onclick="closeLightbox({currentTarget:this})">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1);event.stopPropagation()">‹</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="Gallery">
+  <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1);event.stopPropagation()">›</button>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     CONTACT PAGE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="page-wrap">
+    <div class="contact-hero-section">
+      <span class="section-label">Get in touch</span>
+      <h1 class="section-title">Say <em>Hello</em></h1>
+      <p class="section-sub">We'd love to hear from you. Drop us a message or visit us in Chitwan.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="contact-form-group">
+          <label class="contact-label">Your Name *</label>
+          <input class="contact-input" type="text" id="contact-name" placeholder="e.g. Aarav Sharma">
+        </div>
+        <div class="contact-form-group">
+          <label class="contact-label">Email Address</label>
+          <input class="contact-input" type="email" id="contact-email" placeholder="your@email.com">
+        </div>
+        <div class="contact-form-group">
+          <label class="contact-label">Subject</label>
+          <input class="contact-input" type="text" id="contact-subject" placeholder="e.g. Reservation, Feedback…">
+        </div>
+        <div class="contact-form-group">
+          <label class="contact-label">Message *</label>
+          <textarea class="contact-input contact-textarea" id="contact-message" placeholder="Tell us anything…"></textarea>
+        </div>
+        <button class="btn btn-primary" onclick="sendContactMessage()">Send via WhatsApp 💬</button>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="contact-info-card">
+          <div class="contact-info-title">Contact Info</div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📍</div>
+            <div><div class="contact-info-label">Address</div><div class="contact-info-value">Narayangadh, Chitwan, Nepal</div></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📞</div>
+            <div><div class="contact-info-label">Phone / WhatsApp</div><div class="contact-info-value">+977 980-289-0267</div></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">🕐</div>
+            <div>
+              <div class="contact-info-label">Opening Hours</div>
+              <div class="hours-grid" style="margin-top:8px">
+                <div class="hours-item"><div class="hours-day">Sun – Thu</div><div class="hours-time">7:00 AM – 9:00 PM</div></div>
+                <div class="hours-item"><div class="hours-day">Fri – Sat</div><div class="hours-time">7:00 AM – 10:00 PM</div></div>
+                <div class="hours-item"><div class="hours-day">Holidays</div><div class="hours-time">8:00 AM – 8:00 PM</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">🌐</div>
+            <div><div class="contact-info-label">Social Media</div><div class="contact-info-value">@theteastage on Instagram & Facebook</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="height:80px"></div>
+  </div>
+  <footer id="contact-footer" class="footer"></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     FAQ PAGE
+══════════════════════════════════════════════ -->
+<div class="page" id="page-faq">
+  <div class="page-wrap">
+    <div class="faq-hero-section">
+      <span class="section-label">Got questions?</span>
+      <h1 class="section-title">Frequently Asked <em>Questions</em></h1>
+      <p class="section-sub">Everything you need to know about The Tea Stage.</p>
+    </div>
+    <div class="faq-list" id="faq-list"></div>
+    <div style="height:80px"></div>
+  </div>
+  <footer id="faq-footer" class="footer"></footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     CART DRAWER
+══════════════════════════════════════════════ -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <div class="drawer-title">🛒 Your Order</div>
+    <button class="drawer-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="drawer-empty" id="drawer-empty">
+    <div class="drawer-empty-icon">🧺</div>
+    <div class="drawer-empty-title">Nothing here yet</div>
+    <div>Add items from the menu to get started</div>
+    <button class="btn btn-outline" style="margin-top:16px" onclick="closeCart();navigate('menu')">Browse Menu</button>
+  </div>
+  <div class="drawer-items" id="drawer-items" style="display:none"></div>
+  <div class="drawer-footer" id="drawer-footer" style="display:none">
+    <div class="invoice-line"><span>Subtotal</span><span id="d-subtotal">Rs 0</span></div>
+    <div class="invoice-line"><span>Service (10%)</span><span id="d-service">Rs 0</span></div>
+    <div class="invoice-line total"><span>Total</span><span id="d-total">Rs 0</span></div>
+    <button class="drawer-view-cart-btn" onclick="closeCart();navigate('cart')">View Full Cart</button>
+    <button class="drawer-wa-btn" onclick="placeOrderWA()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Order via WhatsApp
+    </button>
+  </div>
+</div>
+
+<!-- FABs -->
+<div class="fab-group">
+  <button class="fab fab-top" id="fabTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
+  <button class="fab fab-bell" id="fabBell" onclick="openWaiterModal()" title="Call Waiter">🔔</button>
+  <a class="fab fab-wa" href="https://wa.me/9779802890267" target="_blank" rel="noopener" title="WhatsApp">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+  <button class="fab fab-cart" id="fabCart" onclick="openCart()" title="Cart">
+    🛒<span class="fab-cart-badge" id="fabCartBadge">0</span>
+  </button>
+</div>
+
+<!-- Toast -->
+<div class="toast-wrap"><div class="toast" id="toast"></div></div>
+
+<!-- Waiter Modal -->
+<div class="modal-overlay" id="waiterModal">
+  <div class="modal-box">
+    <div class="modal-icon">🔔</div>
+    <div class="modal-title">Call Waiter</div>
+    <div class="modal-sub">Enter your table number and we'll alert our staff via WhatsApp instantly.</div>
+    <input class="modal-input" type="text" id="waiter-table" placeholder="Table No. (e.g. 5)" maxlength="4" inputmode="numeric">
+    <div class="modal-btns">
+      <button class="modal-btn modal-cancel" onclick="closeWaiterModal()">Cancel</button>
+      <button class="modal-btn modal-confirm" onclick="confirmCallWaiter()">🔔 Call Now</button>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+/* ═══════════════════════════════════════════════════
+   CONFIG
+═══════════════════════════════════════════════════ */
+const WA_NUMBER = '9779802890267';
+const SERVICE_CHARGE = 0.10;
+
+/* ═══════════════════════════════════════════════════
+   MENU DATA
+═══════════════════════════════════════════════════ */
+const menuData = {
+  tea: [
+    { name:'Milk Tea', type:'Hot', tag:'Popular', price:80, img:'https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=800', desc:'Classic Nepali milk tea brewed with full-cream milk, premium tea leaves, and a touch of sweetness.',
+      ingredients:['Black Tea Leaves','Full Cream Milk','Sugar','Cardamom'], flavor:'Rich · Creamy · Mild Sweet',
+      calories:120, allergens:['Dairy'], pairings:['Masala Chai','Garlic Bread','Popcorn'],
+      addons:[{label:'Extra Shot',price:20},{label:'Extra Sugar',price:0},{label:'Ginger',price:0},{label:'Cardamom',price:0}] },
+    { name:'Black Tea', type:'Hot', price:70, img:'https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?q=80&w=800', desc:'Pure, bold black tea — clean and refreshing with no additives.',
+      ingredients:['Premium Black Tea Leaves','Hot Water','Lemon (optional)'], flavor:'Bold · Earthy · Clean',
+      calories:5, allergens:[], pairings:['Garlic Bread','Nachos','Brownie'],
+      addons:[{label:'Lemon',price:0},{label:'Honey +Rs 20',price:20},{label:'Ginger',price:0}] },
+    { name:'Green Tea', type:'Hot · Healthy', price:120, img:'https://drive.google.com/thumbnail?id=1fLeqCcD9uRJ976st8IVUCvhmfzw29_Ma&sz=w1000', desc:'Antioxidant-rich green tea sourced from Nepal\'s finest gardens. Light, earthy, and calming.',
+      ingredients:['Nepali Green Tea Leaves','Hot Water','Lemon (optional)'], flavor:'Light · Earthy · Fresh',
+      calories:3, allergens:[], pairings:['Waffle','Cheesecake','Green Salad'],
+      addons:[{label:'Honey +Rs 20',price:20},{label:'Lemon',price:0},{label:'Mint',price:0}] },
+    { name:'Masala Chai', type:'Hot · Spiced', tag:'Bestseller', price:100, img:'https://drive.google.com/thumbnail?id=1gsOc3HIWLlBcRNNUyJMmNeI_MJ0Dd1sd&sz=w1000', desc:'A warming spiced chai with cardamom, ginger, cinnamon, and cloves. Our undisputed bestseller.',
+      ingredients:['Black Tea','Full Cream Milk','Cardamom','Fresh Ginger','Cinnamon','Cloves','Sugar'], flavor:'Spiced · Warming · Aromatic',
+      calories:140, allergens:['Dairy'], pairings:['Garlic Bread','Samosa','Brownie'],
+      addons:[{label:'Extra Ginger',price:0},{label:'Extra Cardamom',price:0},{label:'Less Milk',price:0},{label:'Honey instead of sugar',price:10}] },
+    { name:'Lemon Tea', type:'Hot · Cold', price:100, img:'https://drive.google.com/thumbnail?id=1CIY89Stig4SNSUPr4EPAwmtl3b51f5sJ&sz=w1000', desc:'Bright, zesty lemon tea served hot or iced. A refreshing twist on a classic.',
+      ingredients:['Black Tea','Fresh Lemon','Sugar','Honey (optional)'], flavor:'Zesty · Bright · Refreshing',
+      calories:40, allergens:[], pairings:['Cheesecake','Nachos','Chicken Sandwich'],
+      addons:[{label:'Extra Lemon',price:0},{label:'Honey +Rs 20',price:20},{label:'Mint',price:0}] },
+    { name:'Ginger Tea', type:'Hot · Herbal', price:100, img:'https://drive.google.com/thumbnail?id=1Ze3UOYd2JiaRcPN1T6yTf9eOM14_Rt5U&sz=w1000', desc:'Invigorating ginger tea with a sharp, warming kick. Perfect for a cold day.',
+      ingredients:['Black Tea','Fresh Ginger','Honey','Hot Water'], flavor:'Sharp · Warming · Invigorating',
+      calories:25, allergens:[], pairings:['Masala Chai','Garlic Bread','Brownie'],
+      addons:[{label:'Extra Ginger',price:0},{label:'Lemon',price:0},{label:'Honey +Rs 20',price:20}] },
+  ],
+  coffee: [
+    { name:'Espresso', type:'Hot', price:140, img:'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=800', desc:'A concentrated shot of rich, dark espresso. Bold, aromatic, and intense.',
+      ingredients:['Premium Arabica Espresso Beans','Hot Water'], flavor:'Bold · Intense · Roasted',
+      calories:10, allergens:[], pairings:['Brownie','Cheesecake','Dark Chocolate'],
+      addons:[{label:'Double Shot +Rs 60',price:60},{label:'Sugar',price:0},{label:'Oat Milk +Rs 30',price:30}] },
+    { name:'Americano', type:'Hot · Cold', price:160, img:'https://images.unsplash.com/photo-1494314671902-399b18174975?q=80&w=800', desc:'Espresso diluted with hot or cold water for a smooth, full-bodied coffee experience.',
+      ingredients:['Espresso','Hot/Cold Water'], flavor:'Smooth · Full-bodied · Mild',
+      calories:15, allergens:[], pairings:['Garlic Bread','Club Sandwich'],
+      addons:[{label:'Extra Shot +Rs 60',price:60},{label:'Oat Milk +Rs 30',price:30}] },
+    { name:'Cappuccino', type:'Hot', tag:'Popular', price:220, img:'https://images.unsplash.com/photo-1534778101976-62847782c213?q=80&w=800', desc:'Espresso with velvety steamed milk foam. The perfect balance of bold and creamy.',
+      ingredients:['Espresso','Steamed Milk','Milk Foam','Optional Cocoa Powder'], flavor:'Balanced · Creamy · Aromatic',
+      calories:130, allergens:['Dairy'], pairings:['Brownie','Croissant','Cheesecake'],
+      addons:[{label:'Extra Shot +Rs 60',price:60},{label:'Oat Milk +Rs 30',price:30},{label:'Vanilla Syrup +Rs 30',price:30},{label:'Caramel Drizzle +Rs 20',price:20}] },
+    { name:'Latte', type:'Hot · Cold', price:240, img:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=800', desc:'Smooth espresso paired with steamed milk. Rich, silky, and beautifully layered.',
+      ingredients:['Espresso','Steamed Milk','Light Milk Foam'], flavor:'Smooth · Silky · Mild Coffee',
+      calories:150, allergens:['Dairy'], pairings:['Brownie','Waffle','Croissant'],
+      addons:[{label:'Vanilla Syrup +Rs 30',price:30},{label:'Caramel +Rs 20',price:20},{label:'Oat Milk +Rs 30',price:30},{label:'Extra Shot +Rs 60',price:60}] },
+    { name:'Mocha', type:'Hot', tag:'Bestseller', price:260, img:'https://drive.google.com/thumbnail?id=1L-D9vcMFgHmKIiETG5ouxfLaCdylA8xm&sz=w1000', desc:'Espresso meets chocolate in this indulgent, rich, and utterly satisfying mocha.',
+      ingredients:['Espresso','Chocolate Sauce','Steamed Milk','Whipped Cream'], flavor:'Rich · Chocolatey · Indulgent',
+      calories:230, allergens:['Dairy'], pairings:['Brownie','Donut','Cheesecake'],
+      addons:[{label:'Extra Chocolate +Rs 20',price:20},{label:'Extra Whip +Rs 20',price:20},{label:'Hazelnut Syrup +Rs 30',price:30}] },
+    { name:'Cold Coffee', type:'Cold', price:300, img:'https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=800', desc:'Chilled coffee blended to creamy perfection. Refreshing and energising.',
+      ingredients:['Cold Brew Coffee','Milk','Ice','Sugar'], flavor:'Refreshing · Creamy · Cool',
+      calories:180, allergens:['Dairy'], pairings:['French Fries','Brownie','Nachos'],
+      addons:[{label:'Extra Milk',price:0},{label:'Chocolate Drizzle +Rs 20',price:20},{label:'Whipped Cream +Rs 20',price:20}] },
+  ],
+  special: [
+    { name:'Bubble Tea', type:'Cold', tag:'Trending', price:320, img:'https://drive.google.com/thumbnail?id=1W8f2BCkBm1xWI5U3sBcM31WjVXAvoXMN&sz=w1000', desc:'Chewy tapioca pearls swimming in a sweet, creamy tea base. Playful and unique.',
+      ingredients:['Black Tea','Milk','Tapioca Pearls','Brown Sugar Syrup','Ice'], flavor:'Sweet · Creamy · Fun',
+      calories:280, allergens:['Dairy'], pairings:['French Fries','Nachos','Brownie'],
+      addons:[{label:'Extra Pearls +Rs 30',price:30},{label:'Coconut Jelly +Rs 30',price:30}] },
+    { name:'Oreo Shake', type:'Milkshake · Cold', price:300, img:'https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=800', desc:'A thick, creamy milkshake blended with real Oreo cookies. Sinfully delicious.',
+      ingredients:['Full Cream Milk','Oreo Cookies','Vanilla Ice Cream','Whipped Cream'], flavor:'Sweet · Cookies & Cream · Indulgent',
+      calories:380, allergens:['Dairy','Gluten'], pairings:['Brownie','French Fries','Donut'],
+      addons:[{label:'Extra Oreo +Rs 30',price:30},{label:'Extra Cream +Rs 20',price:20}] },
+    { name:'Chocolate Shake', type:'Milkshake · Cold', price:320, img:'https://drive.google.com/thumbnail?id=1ZIaYTxKvkMEzMZqoWyriR9JS8WA09CSl&sz=w1000', desc:'Premium chocolate blended with creamy milk into a luxuriously thick shake.',
+      ingredients:['Full Cream Milk','Premium Chocolate','Vanilla Ice Cream','Cocoa Powder'], flavor:'Rich · Chocolatey · Velvety',
+      calories:360, allergens:['Dairy'], pairings:['Brownie with Ice Cream','French Fries'],
+      addons:[{label:'Extra Chocolate +Rs 20',price:20},{label:'Whipped Cream +Rs 20',price:20}] },
+    { name:'Strawberry Shake', type:'Milkshake · Cold', price:320, img:'https://drive.google.com/thumbnail?id=1yBQ03tmGxbrJEr8h3iFTEFO7iwODpGFo&sz=w1000', desc:'Fresh strawberry flavour blended into a rich, fruity milkshake.',
+      ingredients:['Full Cream Milk','Strawberry Syrup','Vanilla Ice Cream','Fresh Strawberries'], flavor:'Fruity · Sweet · Refreshing',
+      calories:320, allergens:['Dairy'], pairings:['Waffle','Pancake','Donut'],
+      addons:[{label:'Extra Strawberry +Rs 20',price:20},{label:'Whipped Cream +Rs 20',price:20}] },
+    { name:'Mojito Mint', type:'Mocktail · Cold', price:250, img:'https://drive.google.com/thumbnail?id=1rhWCaxtpn4_Akupwh0ZUGUpOLwjcujyQ&sz=w1000', desc:'Refreshing non-alcoholic mojito with fresh mint, lime, and sparkling soda.',
+      ingredients:['Fresh Mint','Lime Juice','Sugar Syrup','Sparkling Water','Ice'], flavor:'Fresh · Minty · Zesty',
+      calories:80, allergens:[], pairings:['French Fries','Nachos','Club Sandwich'],
+      addons:[{label:'Extra Mint',price:0},{label:'Extra Lime',price:0}] },
+    { name:'Blue Lagoon', type:'Mocktail · Cold', tag:'Special', price:300, img:'https://drive.google.com/thumbnail?id=1EfwgXJlUpAkXRx6C_lzvQZKzef-H_FiD&sz=w1000', desc:'A stunning azure mocktail layered with blue curacao syrup, lime, and sparkling water.',
+      ingredients:['Blue Curacao Syrup','Lime Juice','Sparkling Water','Ice','Lemon Slice'], flavor:'Tropical · Sweet · Citrusy',
+      calories:110, allergens:[], pairings:['Nachos','Club Sandwich'],
+      addons:[{label:'Extra Lime',price:0}] },
+    { name:'Peach Iced Tea', type:'Cold Tea', price:280, img:'https://drive.google.com/thumbnail?id=13bo-v0Tie-RNpG7qx_oPocHrH0VbBifz&sz=w1000', desc:'Premium black tea with sweet peach syrup served over ice. Refreshingly summery.',
+      ingredients:['Black Tea','Peach Syrup','Ice','Lemon'], flavor:'Sweet · Peachy · Refreshing',
+      calories:90, allergens:[], pairings:['Club Sandwich','Waffle','Cheesecake'],
+      addons:[{label:'Extra Peach Syrup',price:20},{label:'Lemon',price:0}] },
+    { name:'Brown Sugar Milk Tea', type:'Premium · Cold', tag:'New', price:350, img:'https://drive.google.com/thumbnail?id=1Q5gdVQBG1eE8IJLfFuyeBNYVC_Xao_IQ&sz=w1000', desc:'Trending brown sugar milk tea with caramel tiger stripes and fresh milk foam.',
+      ingredients:['Black Tea','Brown Sugar Syrup','Fresh Milk Foam','Tapioca Pearls','Ice'], flavor:'Caramel · Sweet · Creamy',
+      calories:310, allergens:['Dairy'], pairings:['Brownie','French Fries'],
+      addons:[{label:'Extra Pearls +Rs 30',price:30},{label:'Extra Brown Sugar +Rs 20',price:20}] },
+  ],
+  snacks: [
+    { name:'French Fries', type:'Snack · Hot', price:220, img:'https://drive.google.com/thumbnail?id=1WxNgls5308Tuqe6vMk6x6cxn2EsoqMZV&sz=w1000', desc:'Perfectly golden and crispy fries, seasoned and served hot.',
+      ingredients:['Potatoes','Vegetable Oil','Salt','Seasoning'], flavor:'Crispy · Salty · Golden',
+      calories:320, allergens:['Gluten'], pairings:['Cold Coffee','Latte','Cappuccino'],
+      addons:[{label:'Extra Seasoning',price:0},{label:'Cheese Dip +Rs 50',price:50},{label:'Peri Peri Seasoning +Rs 30',price:30}] },
+    { name:'Peri Peri Fries', type:'Snack · Spicy', tag:'Spicy', price:280, img:'https://drive.google.com/thumbnail?id=1ftUpQwmeKo0yYm8r2hzo8XgEHE79A1nU&sz=w1000', desc:'Crispy fries tossed in fiery peri peri seasoning. For the spice lovers.',
+      ingredients:['Potatoes','Vegetable Oil','Peri Peri Seasoning','Paprika','Chilli'], flavor:'Spicy · Smoky · Crispy',
+      calories:340, allergens:['Gluten'], pairings:['Cold Coffee','Americano','Mojito Mint'],
+      addons:[{label:'Extra Spicy',price:0},{label:'Cheese Dip +Rs 50',price:50}] },
+    { name:'Garlic Bread', type:'Snack · Hot', price:250, img:'https://drive.google.com/thumbnail?id=1Ks7MsVEQwbFEyGg7qYkaFygsYskdPS1V&sz=w1000', desc:'Soft baguette slices loaded with garlic butter, toasted to perfection.',
+      ingredients:['Baguette Bread','Garlic Butter','Herbs','Parsley'], flavor:'Buttery · Garlicky · Herby',
+      calories:280, allergens:['Gluten','Dairy'], pairings:['Latte','Cappuccino','Black Tea'],
+      addons:[{label:'Extra Garlic',price:0},{label:'Cheese +Rs 40',price:40}] },
+    { name:'Nachos', type:'Snack · Crispy', price:320, img:'https://images.unsplash.com/photo-1582169296194-e4d644c48063?q=80&w=800', desc:'Crispy tortilla chips with salsa, sour cream, and cheese dip. Great for sharing.',
+      ingredients:['Tortilla Chips','Salsa','Sour Cream','Cheese Dip','Jalapeños'], flavor:'Crispy · Tangy · Cheesy',
+      calories:420, allergens:['Gluten','Dairy'], pairings:['Mojito Mint','Blue Lagoon','Americano'],
+      addons:[{label:'Extra Jalapeños',price:0},{label:'Extra Cheese +Rs 40',price:40},{label:'Guacamole +Rs 60',price:60}] },
+    { name:'Popcorn', type:'Snack · Hot', price:180, img:'https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?q=80&w=800', desc:'Freshly popped corn, lightly salted and buttered. Perfect movie-night snack.',
+      ingredients:['Corn','Butter','Salt'], flavor:'Light · Buttery · Salty',
+      calories:200, allergens:['Dairy'], pairings:['Cold Coffee','Americano','Chocolate Shake'],
+      addons:[{label:'Caramel Coating +Rs 30',price:30},{label:'Extra Butter',price:0}] },
+  ],
+  fastfood: [
+    { name:'Veg Burger', type:'Burger · Hot', price:280, img:'https://drive.google.com/thumbnail?id=1SE2IaBBp7fMrlEMeXMiKIIbjmZ6606mf&sz=w1000', desc:'Hearty vegetarian burger with fresh veggies, cheese, and our signature sauce.',
+      ingredients:['Burger Bun','Veggie Patty','Lettuce','Tomato','Cheese','Signature Sauce','Onion'], flavor:'Savory · Fresh · Satisfying',
+      calories:420, allergens:['Gluten','Dairy'], pairings:['Cold Coffee','Lemon Tea','French Fries'],
+      addons:[{label:'Extra Cheese +Rs 40',price:40},{label:'Remove Onion',price:0},{label:'Add Jalapeños +Rs 20',price:20}] },
+    { name:'Chicken Burger', type:'Burger · Hot', tag:'Popular', price:380, img:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800', desc:'Juicy grilled chicken patty with lettuce, tomato, and our house mayo. A classic.',
+      ingredients:['Burger Bun','Grilled Chicken Patty','Lettuce','Tomato','House Mayo','Cheese','Onion'], flavor:'Juicy · Savory · Satisfying',
+      calories:480, allergens:['Gluten','Dairy','Egg'], pairings:['Cold Coffee','Americano','French Fries'],
+      addons:[{label:'Extra Cheese +Rs 40',price:40},{label:'Remove Onion',price:0},{label:'Double Patty +Rs 120',price:120}] },
+    { name:'Club Sandwich', type:'Sandwich · Hot', price:350, img:'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?q=80&w=800', desc:'Triple-decker sandwich packed with chicken, cheese, and fresh vegetables.',
+      ingredients:['Sandwich Bread','Grilled Chicken','Cheese','Lettuce','Tomato','Cucumber','Mayo'], flavor:'Fresh · Hearty · Satisfying',
+      calories:440, allergens:['Gluten','Dairy','Egg'], pairings:['Cold Coffee','Lemon Tea','Mojito Mint'],
+      addons:[{label:'Extra Chicken +Rs 60',price:60},{label:'Extra Cheese +Rs 40',price:40}] },
+    { name:'Veg Pizza', type:'Pizza · Hot', price:550, img:'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=800', desc:'Stone-baked pizza with tomato sauce, mozzarella, and seasonal vegetables.',
+      ingredients:['Pizza Dough','Tomato Sauce','Mozzarella','Bell Peppers','Onion','Mushroom','Olives'], flavor:'Tangy · Cheesy · Fresh',
+      calories:580, allergens:['Gluten','Dairy'], pairings:['Cold Coffee','Americano','Mojito Mint'],
+      addons:[{label:'Extra Cheese +Rs 60',price:60},{label:'Extra Olives +Rs 20',price:20}] },
+    { name:'Chicken Pizza', type:'Pizza · Hot', tag:'Bestseller', price:750, img:'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=800', desc:'Loaded chicken pizza with BBQ sauce, peppers, and melted mozzarella.',
+      ingredients:['Pizza Dough','BBQ Sauce','Grilled Chicken','Mozzarella','Bell Peppers','Onion'], flavor:'Smoky · Cheesy · Loaded',
+      calories:680, allergens:['Gluten','Dairy'], pairings:['Americano','Cold Coffee','Blue Lagoon'],
+      addons:[{label:'Extra Chicken +Rs 80',price:80},{label:'Extra Cheese +Rs 60',price:60},{label:'Jalapeños +Rs 20',price:20}] },
+    { name:'Veg Momo', type:'Momo · Hot', price:180, img:'https://drive.google.com/thumbnail?id=1eb_rw2PQteKO4zyEGAK2Qx70vUO294L9&sz=w1000', desc:'Steamed dumplings stuffed with spiced vegetables. A Nepali staple.',
+      ingredients:['Wheat Flour Wrapper','Cabbage','Carrot','Onion','Nepali Spices','Dipping Sauce'], flavor:'Savory · Spiced · Comfort',
+      calories:220, allergens:['Gluten'], pairings:['Masala Chai','Ginger Tea','Black Tea'],
+      addons:[{label:'Extra Dipping Sauce',price:0},{label:'Fried instead of Steamed +Rs 20',price:20}] },
+    { name:'Chicken Momo', type:'Momo · Hot', tag:'Favourite', price:250, img:'https://drive.google.com/thumbnail?id=14FdnIyM4DA5skv1MjtcioLGG54FvMWzp&sz=w1000', desc:'Juicy chicken-filled dumplings steamed to perfection, served with spicy dipping sauce.',
+      ingredients:['Wheat Flour Wrapper','Ground Chicken','Onion','Garlic','Ginger','Nepali Spices','Dipping Sauce'], flavor:'Juicy · Spiced · Comforting',
+      calories:280, allergens:['Gluten'], pairings:['Masala Chai','Ginger Tea','Lemon Tea'],
+      addons:[{label:'Extra Sauce',price:0},{label:'Fried instead of Steamed +Rs 20',price:20},{label:'Jhol Momo (Broth) +Rs 30',price:30}] },
+    { name:'Chowmein', type:'Noodles · Hot', price:220, img:'https://drive.google.com/thumbnail?id=1mpjl3pNV-7YYwfFMNz6DuFtlol-tFUme&sz=w1000', desc:'Wok-fried noodles with vegetables, soy sauce, and aromatic spices.',
+      ingredients:['Noodles','Cabbage','Carrot','Bell Pepper','Soy Sauce','Garlic','Nepali Spices'], flavor:'Savory · Aromatic · Wok-fried',
+      calories:360, allergens:['Gluten','Soy'], pairings:['Black Tea','Masala Chai','Ginger Tea'],
+      addons:[{label:'Add Egg +Rs 30',price:30},{label:'Add Chicken +Rs 80',price:80},{label:'Extra Spicy',price:0}] },
+    { name:'Pasta White Sauce', type:'Pasta · Hot', price:420, img:'https://drive.google.com/thumbnail?id=1Y6b08otXnjRsNrl-kk1IF7ZaBxqIR1xw&sz=w1000', desc:'Al dente pasta in a rich, creamy béchamel sauce with herbs.',
+      ingredients:['Penne Pasta','Béchamel Sauce','Butter','Flour','Milk','Herbs','Parmesan'], flavor:'Creamy · Buttery · Comforting',
+      calories:520, allergens:['Gluten','Dairy'], pairings:['Garlic Bread','Latte','Cappuccino'],
+      addons:[{label:'Add Chicken +Rs 80',price:80},{label:'Extra Cheese +Rs 50',price:50}] },
+    { name:'Pasta Red Sauce', type:'Pasta · Hot', price:420, img:'https://drive.google.com/thumbnail?id=1UaJ-qaOL2vQnLEUDBvxT3hAR-msMCnWl&sz=w1000', desc:'Pasta tossed in a vibrant tomato marinara with garlic and Italian herbs.',
+      ingredients:['Penne Pasta','Tomato Sauce','Garlic','Basil','Oregano','Olive Oil','Parmesan'], flavor:'Tangy · Herby · Classic Italian',
+      calories:480, allergens:['Gluten','Dairy'], pairings:['Garlic Bread','Americano','Cappuccino'],
+      addons:[{label:'Add Chicken +Rs 80',price:80},{label:'Extra Cheese +Rs 50',price:50}] },
+  ],
+  dessert: [
+    { name:'Brownie', type:'Hot Dessert', price:250, img:'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=800', desc:'Fudgy chocolate brownie, warm from the oven. Dense, rich, and irresistible.',
+      ingredients:['Dark Chocolate','Butter','Sugar','Eggs','Flour','Vanilla'], flavor:'Rich · Fudgy · Chocolatey',
+      calories:380, allergens:['Gluten','Dairy','Egg'], pairings:['Espresso','Mocha','Cappuccino'],
+      addons:[{label:'Ice Cream Scoop +Rs 100',price:100},{label:'Chocolate Sauce +Rs 30',price:30},{label:'Whipped Cream +Rs 20',price:20}] },
+    { name:'Brownie with Ice Cream', type:'Combo · Hot · Cold', tag:'Popular', price:350, img:'https://drive.google.com/thumbnail?id=1MGxu1ofH-ASLClY3AkNEt3yG3n-1Sqf-&sz=w1000', desc:'Warm brownie paired with a scoop of vanilla ice cream. The ultimate comfort dessert.',
+      ingredients:['Dark Chocolate','Butter','Sugar','Eggs','Flour','Vanilla Ice Cream'], flavor:'Rich · Creamy · Indulgent · Hot & Cold',
+      calories:480, allergens:['Gluten','Dairy','Egg'], pairings:['Espresso','Mocha','Hot Chocolate'],
+      addons:[{label:'Extra Ice Cream +Rs 100',price:100},{label:'Chocolate Sauce +Rs 30',price:30}] },
+    { name:'Cheesecake', type:'Cold Dessert', price:380, img:'https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=800', desc:'Smooth, creamy New York-style cheesecake on a buttery biscuit base.',
+      ingredients:['Cream Cheese','Biscuit Base','Sugar','Eggs','Lemon','Vanilla'], flavor:'Creamy · Tangy · Rich',
+      calories:420, allergens:['Gluten','Dairy','Egg'], pairings:['Espresso','Americano','Lemon Tea'],
+      addons:[{label:'Berry Compote +Rs 40',price:40},{label:'Extra Cream +Rs 20',price:20}] },
+    { name:'Waffle', type:'Hot Dessert', price:320, img:'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=800', desc:'Crispy golden waffles served with syrup, butter, and your choice of toppings.',
+      ingredients:['Waffle Batter','Butter','Maple Syrup','Whipped Cream'], flavor:'Crispy · Sweet · Golden',
+      calories:400, allergens:['Gluten','Dairy','Egg'], pairings:['Cappuccino','Latte','Strawberry Shake'],
+      addons:[{label:'Strawberry Topping +Rs 40',price:40},{label:'Chocolate Sauce +Rs 30',price:30},{label:'Ice Cream +Rs 100',price:100}] },
+    { name:'Pancake', type:'Breakfast · Dessert', price:300, img:'https://images.unsplash.com/photo-1528207776546-365bb710ee93?q=80&w=800', desc:'Fluffy stacked pancakes with maple syrup and butter. Breakfast perfection.',
+      ingredients:['Flour','Eggs','Milk','Butter','Maple Syrup','Baking Powder'], flavor:'Fluffy · Sweet · Comforting',
+      calories:350, allergens:['Gluten','Dairy','Egg'], pairings:['Cappuccino','Masala Chai','Strawberry Shake'],
+      addons:[{label:'Berry Mix +Rs 50',price:50},{label:'Chocolate Spread +Rs 30',price:30}] },
+    { name:'Donut', type:'Sweet · Cold', price:150, img:'https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=800', desc:'Soft, glazed donuts with a melt-in-mouth texture. Simple, sweet, satisfying.',
+      ingredients:['Flour','Yeast','Sugar','Butter','Vanilla Glaze'], flavor:'Sweet · Soft · Glazed',
+      calories:250, allergens:['Gluten','Dairy'], pairings:['Espresso','Cappuccino','Milk Tea'],
+      addons:[{label:'Sprinkles +Rs 10',price:10},{label:'Chocolate Dip +Rs 20',price:20}] },
+    { name:'Ice Cream Scoop', type:'Frozen · Cold', price:120, img:'https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?q=80&w=800', desc:'Premium ice cream scoop in your choice of flavour. Cool and refreshing.',
+      ingredients:['Premium Ice Cream','Cone (optional)'], flavor:'Cold · Sweet · Creamy',
+      calories:180, allergens:['Dairy'], pairings:['Brownie','Waffle','Espresso'],
+      addons:[{label:'Extra Scoop +Rs 120',price:120},{label:'Chocolate Sauce +Rs 20',price:20}] },
+  ],
+  hookah: [
+    { name:'Mint Flavor', type:'Hookah · Premium', price:900, img:'https://drive.google.com/thumbnail?id=18sXyrAAde-XNv1Y_fQfeC6aXb2QAmUQD&sz=w1000', desc:'Cool, refreshing mint hookah with smooth draws. The classic lounge choice.',
+      ingredients:['Premium Hookah Tobacco','Natural Mint Extract','Glycerin Base'], flavor:'Cool · Refreshing · Smooth',
+      calories:0, allergens:[], pairings:['Masala Chai','Cold Coffee','Mojito Mint'],
+      addons:[{label:'Ice in Base',price:0},{label:'Coconut Coal Upgrade +Rs 100',price:100}] },
+    { name:'Blueberry Flavor', type:'Hookah · Premium', tag:'Popular', price:1000, img:'https://drive.google.com/thumbnail?id=1c03OtVIXDpIsIEoc4mZRmb3djspDjqHJ&sz=w1000', desc:'Sweet blueberry flavour with a smooth, fruity finish. A crowd favourite.',
+      ingredients:['Premium Hookah Tobacco','Natural Blueberry Extract','Glycerin Base'], flavor:'Sweet · Fruity · Smooth',
+      calories:0, allergens:[], pairings:['Brown Sugar Milk Tea','Blue Lagoon'],
+      addons:[{label:'Ice in Base',price:0},{label:'Coconut Coal Upgrade +Rs 100',price:100}] },
+    { name:'Double Apple Flavor', type:'Hookah · Classic', price:1000, img:'https://drive.google.com/thumbnail?id=1J_DjXkzuitbLnAoi1pKb91TFneIrfclL&sz=w1000', desc:'The timeless double apple hookah — a blend of green and red apple flavours.',
+      ingredients:['Premium Hookah Tobacco','Green Apple Extract','Red Apple Extract'], flavor:'Fruity · Classic · Balanced',
+      calories:0, allergens:[], pairings:['Lemon Tea','Peach Iced Tea'],
+      addons:[{label:'Ice in Base',price:0},{label:'Mint Mix',price:0}] },
+    { name:'Grape Mint Flavor', type:'Hookah · Premium', tag:'Bestseller', price:1100, img:'https://drive.google.com/thumbnail?id=17ywMBypxiCsoSCHp66HJZovZdCLrWNxL&sz=w1000', desc:'Luscious grape with a cooling mint finish. Our bestselling premium blend.',
+      ingredients:['Premium Hookah Tobacco','Grape Extract','Natural Mint','Glycerin Base'], flavor:'Sweet Grape · Cool Mint · Premium',
+      calories:0, allergens:[], pairings:['Cold Coffee','Mojito Mint','Cappuccino'],
+      addons:[{label:'Extra Mint',price:0},{label:'Ice in Base',price:0},{label:'Coconut Coal Upgrade +Rs 100',price:100}] },
+  ],
+  cigarettes: [
+    { name:'Surya Luxury Kings', type:'20 sticks · Nepali', price:340, img:'https://drive.google.com/thumbnail?id=1tLg-AoOz6NiolHcg5EuGL_ShgaoLuKJr&sz=w1000', desc:'Premium Nepali cigarette with a smooth, refined blend.',
+      ingredients:['Nepali Tobacco Blend'], flavor:'Smooth · Rich', calories:0, allergens:[], pairings:['Black Coffee','Americano'], addons:[] },
+    { name:'Marlboro Red', type:'20 sticks · Import', tag:'Premium', price:575, img:'https://drive.google.com/thumbnail?id=1GYUsYe34-jDMaM2v5JcTOdY-5WklUdmO&sz=w1000', desc:"The world's most iconic cigarette. Bold, full-flavoured, unmistakable.",
+      ingredients:['International Premium Tobacco Blend'], flavor:'Bold · Full · Iconic', calories:0, allergens:[], pairings:['Espresso','Black Coffee'], addons:[] },
+    { name:'Marlboro Gold', type:'20 sticks · Import', tag:'Premium', price:575, img:'https://drive.google.com/thumbnail?id=1zKk37xGjaxcQzQrF0vOmf8jQRwE5SrnC&sz=w1000', desc:'Marlboro Gold — lighter and smoother. Refined and elegant.',
+      ingredients:['Premium Blend Light Tobacco'], flavor:'Light · Refined · Smooth', calories:0, allergens:[], pairings:['Americano','Latte'], addons:[] },
+  ],
+};
+
+/* ═══════════════════════════════════════════════════
+   CATEGORY META
+═══════════════════════════════════════════════════ */
+const categoryMeta = {
+  tea:       { label:'Teas', icon:'🍵', desc:'Artisan brews & herbal infusions', img:'https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=1200', count:() => menuData.tea.length },
+  coffee:    { label:'Coffee', icon:'☕', desc:'Specialty espresso & cold brews', img:'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=1200', count:() => menuData.coffee.length },
+  special:   { label:'Special Drinks', icon:'🧋', desc:'Shakes, mocktails & bubble teas', img:'https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=1200', count:() => menuData.special.length },
+  snacks:    { label:'Snacks', icon:'🍟', desc:'Light bites & crispy favourites', img:'https://drive.google.com/thumbnail?id=1WxNgls5308Tuqe6vMk6x6cxn2EsoqMZV&sz=w1000', count:() => menuData.snacks.length },
+  fastfood:  { label:'Fast Food', icon:'🍔', desc:'Burgers, momos, pizza & more', img:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1200', count:() => menuData.fastfood.length },
+  dessert:   { label:'Desserts', icon:'🍰', desc:'Sweet endings & indulgent treats', img:'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=1200', count:() => menuData.dessert.length },
+  hookah:    { label:'Hookah', icon:'💨', desc:'Premium lounge hookah flavours', img:'https://drive.google.com/thumbnail?id=18sXyrAAde-XNv1Y_fQfeC6aXb2QAmUQD&sz=w1000', count:() => menuData.hookah.length },
+  cigarettes:{ label:'Cigarettes', icon:'🚬', desc:'Local & international brands', img:'https://drive.google.com/thumbnail?id=1tLg-AoOz6NiolHcg5EuGL_ShgaoLuKJr&sz=w1000', count:() => menuData.cigarettes.length },
+};
+
+const galleryImages = [
+  'https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1200',
+  'https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=1200',
+  'https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&w=1200',
+  'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?q=80&w=1200',
+  'https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=800',
+  'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=800',
+  'https://images.unsplash.com/photo-1534778101976-62847782c213?q=80&w=800',
+  'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=800',
+  'https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=800',
+  'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=800',
+  'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800',
+  'https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=800',
+];
+
+const reviews = [
+  { text:'The masala chai here is unlike anything else in Chitwan. The spices are perfectly balanced and the ambiance is absolutely magical.', author:'Priya S.', rating:5, tag:'Local Regular' },
+  { text:"I've been to cafés across Nepal, but The Tea Stage has a unique soul. The Brownie with Ice Cream is my absolute go-to every visit.", author:'Rohan M.', rating:5, tag:'Food Blogger' },
+  { text:'The hookah lounge is premium and comfortable. Grape Mint is their best flavour — smooth draws, great company, and an atmosphere that feels cinematic.', author:'Siddharth K.', rating:5, tag:'Lounge Regular' },
+  { text:'Ordered the Chicken Pizza and Cold Coffee — both were exceptional. The service was fast and the staff was incredibly warm. Will definitely return!', author:'Anisha T.', rating:5, tag:'First Visit' },
+  { text:'A sanctuary in Chitwan. The Green Tea comes perfectly brewed, and the gallery-like interior makes every visit feel like an experience.', author:'Kiran P.', rating:5, tag:'Tea Enthusiast' },
+  { text:"The Bubble Tea is hands down the best in the city. I bring every guest here. The Tea Stage has become my second home.", author:'Nisha G.', rating:5, tag:'VIP Guest' },
+];
+
+const faqs = [
+  { q:'What are your opening hours?', a:'We are open Sunday to Thursday from 7:00 AM to 9:00 PM, and Friday to Saturday from 7:00 AM to 10:00 PM. On public holidays, we open at 8:00 AM and close at 8:00 PM.' },
+  { q:'Can I order via WhatsApp?', a:'Absolutely! You can place orders directly through our website using the WhatsApp Order button. Your complete order with customizations will be sent directly to our kitchen team.' },
+  { q:'Do you offer vegetarian and vegan options?', a:'Yes! We have a wide range of vegetarian options across all categories — from Veg Momo and Veg Burger to our extensive tea and coffee selection. Please ask our staff about vegan-friendly items.' },
+  { q:'Is hookah available for all ages?', a:'Hookah is strictly available for guests aged 18 and above only, in compliance with Nepali regulations. Valid ID may be requested.' },
+  { q:'Can I make a reservation for large groups?', a:'Yes, we welcome group bookings. Please contact us via WhatsApp at +977 980-289-0267 to arrange a reservation and we\'ll ensure the best experience for your group.' },
+  { q:'Do you have a loyalty programme?', a:'We\'re working on an exciting loyalty programme for our regulars. In the meantime, follow us on Instagram @theteastage for exclusive offers and early-bird deals.' },
+  { q:'Is there parking available?', a:'Yes, street parking is available near our location in Narayangadh, Chitwan. Our staff can assist with directions upon arrival.' },
+  { q:'Do you take card payments?', a:'We currently accept cash payments. We are working to introduce digital payment options soon. You can also pre-arrange payment via WhatsApp for large orders.' },
+];
+
+/* ═══════════════════════════════════════════════════
+   CART STATE
+═══════════════════════════════════════════════════ */
+let cart = [];
+let currentPage = 'home';
+let pageHistory = ['home'];
+let currentCategory = null;
+let currentProduct = null;
+let detailQty = 1;
+let detailAddons = [];
+let orderType = 'dine';
+let mobileNavOpen = false;
+let lightboxIndex = 0;
+
+/* ═══════════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════════ */
+function navigate(page, pushHistory=true) {
+  if(pushHistory && page !== currentPage) pageHistory.push(page);
+  currentPage = page;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('page-' + page);
+  if(el) { el.classList.add('active'); window.scrollTo({top:0,behavior:'instant'}); }
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.toggle('active', l.dataset.page === page));
+  if(page === 'menu') renderMenuPage();
+  if(page === 'cart') renderCartPage();
+  closeMobileNav();
+}
+
+function goBack() {
+  if(pageHistory.length > 1) {
+    pageHistory.pop();
+    const prev = pageHistory[pageHistory.length - 1];
+    navigate(prev, false);
+  } else {
+    navigate('home', false);
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════ */
+function footerHTML() {
+  return `
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="nav-logo">The Tea <em>Stage</em></div>
+        <p>Chitwan's most loved luxury café. Artisan teas, specialty coffee, curated cuisine, and a premium lounge experience since 2020.</p>
+        <div class="footer-socials">
+          <div class="footer-social" onclick="window.open('https://wa.me/9779802890267','_blank')">💬</div>
+          <div class="footer-social">📸</div>
+          <div class="footer-social">👥</div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigate</div>
+        <div class="footer-links">
+          <div class="footer-link" onclick="navigate('home')">Home</div>
+          <div class="footer-link" onclick="navigate('menu')">Menu</div>
+          <div class="footer-link" onclick="navigate('about')">About</div>
+          <div class="footer-link" onclick="navigate('gallery')">Gallery</div>
+          <div class="footer-link" onclick="navigate('contact')">Contact</div>
+          <div class="footer-link" onclick="navigate('faq')">FAQ</div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Menu</div>
+        <div class="footer-links">
+          ${Object.keys(categoryMeta).map(k=>`<div class="footer-link" onclick="navigateToCategory('${k}')">${categoryMeta[k].icon} ${categoryMeta[k].label}</div>`).join('')}
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Opening Hours</div>
+        <div class="footer-hours-item"><span>Sun–Thu</span><strong>7AM–9PM</strong></div>
+        <div class="footer-hours-item"><span>Fri–Sat</span><strong>7AM–10PM</strong></div>
+        <div class="footer-hours-item"><span>Holidays</span><strong>8AM–8PM</strong></div>
+        <div style="margin-top:16px;font-size:12px;color:var(--muted)">📍 Narayangadh, Chitwan</div>
+        <div style="margin-top:4px;font-size:12px;color:var(--muted)">📞 +977 980-289-0267</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2024 <strong>The Tea Stage</strong>. All rights reserved.</div>
+      <div class="footer-copy">Crafted with ♥ in Chitwan, Nepal</div>
+    </div>
+  `;
+}
+function initFooters() {
+  document.querySelectorAll('[id$="-footer"].footer').forEach(f => { f.innerHTML = footerHTML(); });
+}
+
+/* ═══════════════════════════════════════════════════
+   PRODUCT CARD HTML
+═══════════════════════════════════════════════════ */
+function badgeHTML(tag) {
+  if(!tag) return '';
+  const cls = tag.toLowerCase();
+  let cl = '';
+  if(cls==='bestseller'||cls==='popular'||cls==='favourite') cl='';
+  else if(cls==='new') cl=' badge-new';
+  else if(cls==='trending') cl=' badge-trending';
+  else if(cls==='special') cl=' badge-special';
+  else if(cls==='premium') cl='';
+  else if(cls==='spicy') cl=' badge-hot';
+  return `<span class="badge${cl}">${tag}</span>`;
+}
+
+function productCardHTML(catKey, p, index) {
+  return `
+    <div class="prod-card" onclick="openProductDetail('${catKey}',${index})">
+      <div class="prod-card-img">
+        <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800'">
+        ${p.tag ? `<div class="prod-card-badge">${badgeHTML(p.tag)}</div>` : ''}
+      </div>
+      <div class="prod-card-body">
+        <div class="prod-card-type">${p.type || ''}</div>
+        <div class="prod-card-name">${p.name}</div>
+        <div class="prod-card-desc">${p.desc || ''}</div>
+        <div class="prod-card-footer">
+          <div class="prod-card-price">Rs ${p.price.toLocaleString()}</div>
+          <button class="prod-card-add" onclick="event.stopPropagation();quickAdd('${catKey}',${index})" title="Add to cart">+</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+/* ═══════════════════════════════════════════════════
+   HOME PAGE RENDERS
+═══════════════════════════════════════════════════ */
+function renderFeatured() {
+  const featured = [
+    {cat:'tea', idx:3}, {cat:'coffee', idx:4}, {cat:'special', idx:0},
+    {cat:'fastfood', idx:4}, {cat:'dessert', idx:1}, {cat:'hookah', idx:3},
+  ];
+  const grid = document.getElementById('featured-grid');
+  if(!grid) return;
+  grid.innerHTML = featured.map(({cat,idx}) => {
+    const p = menuData[cat][idx];
+    if(!p) return '';
+    return productCardHTML(cat, p, idx);
+  }).join('');
+  animateCards(grid, '.prod-card');
+}
+
+function renderHomeCats() {
+  const grid = document.getElementById('home-cat-grid');
+  if(!grid) return;
+  grid.innerHTML = Object.entries(categoryMeta).map(([k,m]) => `
+    <div class="cat-card reveal" onclick="navigateToCategory('${k}')">
+      <span class="cat-icon">${m.icon}</span>
+      <div class="cat-label">${m.label}</div>
+      <div class="cat-count">${m.count()} items</div>
+    </div>
+  `).join('');
+}
+
+function renderReviews() {
+  const grid = document.getElementById('reviews-grid');
+  if(!grid) return;
+  grid.innerHTML = reviews.map(r => `
+    <div class="review-card reveal">
+      <div class="review-stars">${'★'.repeat(r.rating)}</div>
+      <div class="review-text">"${r.text}"</div>
+      <div class="review-author">
+        <div class="review-avatar">${r.author[0]}</div>
+        <div>
+          <div class="review-name">${r.author}</div>
+          <div class="review-meta">${r.tag}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderGalleryStrip() {
+  const strip = document.getElementById('gallery-strip');
+  if(!strip) return;
+  strip.innerHTML = galleryImages.slice(0,8).map((img,i) => `
+    <div class="gallery-strip-item" onclick="navigate('gallery')">
+      <img src="${img}" alt="Gallery" loading="lazy">
+    </div>
+  `).join('');
+}
+
+/* ═══════════════════════════════════════════════════
+   MENU PAGE
+═══════════════════════════════════════════════════ */
+const menuFilters = ['All','Hot','Cold','Bestseller','Popular','New','Trending','Spicy','Premium'];
+
+function renderMenuPage() {
+  // Filter bar
+  const fb = document.getElementById('filter-bar');
+  if(fb && !fb.innerHTML) {
+    fb.innerHTML = menuFilters.map((f,i) => `<div class="filter-pill${i===0?' active':''}" onclick="applyFilter(this,'filter-bar','${f}')">${f}</div>`).join('');
+  }
+  // Category cards
+  const grid = document.getElementById('menu-cat-grid');
+  if(grid && !grid.innerHTML) {
+    grid.innerHTML = Object.entries(categoryMeta).map(([k,m]) => `
+      <div class="menu-cat-card" onclick="navigateToCategory('${k}')">
+        <div class="menu-cat-img">
+          <img src="${m.img}" alt="${m.label}" loading="lazy">
+        </div>
+        <div class="menu-cat-body">
+          <div class="menu-cat-icon">${m.icon}</div>
+          <div class="menu-cat-name">${m.label}</div>
+          <div class="menu-cat-desc">${m.desc}</div>
+          <div class="menu-cat-count">${m.count()} items</div>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+function applyFilter(btn, containerId, filter) {
+  document.querySelectorAll('#' + containerId + ' .filter-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  if(containerId === 'filter-bar') renderMenuFiltered(filter);
+  if(containerId === 'cat-filter-bar') renderCategoryFiltered(filter);
+}
+
+function renderMenuFiltered(filter) {
+  const grid = document.getElementById('menu-cat-grid');
+  const wrap = document.getElementById('search-results-wrap');
+  if(filter === 'All') { grid.style.display=''; wrap.style.display='none'; return; }
+  const results = [];
+  Object.entries(menuData).forEach(([catKey,prods]) => {
+    prods.forEach((p,i) => {
+      const t = ((p.type||'')+(p.tag||'')).toLowerCase();
+      if(t.includes(filter.toLowerCase())) results.push({catKey,product:p,index:i});
+    });
+  });
+  grid.style.display='none';
+  wrap.style.display='';
+  document.getElementById('no-results').classList.toggle('show', results.length===0);
+  document.getElementById('search-results-grid').innerHTML = results.map(({catKey,product,index}) => productCardHTML(catKey,product,index)).join('');
+}
+
+function handleMenuSearch(q) {
+  document.getElementById('search-clear').style.display = q ? 'block' : 'none';
+  const grid = document.getElementById('menu-cat-grid');
+  const wrap = document.getElementById('search-results-wrap');
+  if(!q.trim()) { grid.style.display=''; wrap.style.display='none'; return; }
+  grid.style.display='none'; wrap.style.display='';
+  const lower = q.toLowerCase();
+  const results = [];
+  Object.entries(menuData).forEach(([catKey,prods]) => {
+    prods.forEach((p,i) => {
+      if(p.name.toLowerCase().includes(lower)||(p.type||'').toLowerCase().includes(lower)||(p.desc||'').toLowerCase().includes(lower))
+        results.push({catKey,product:p,index:i});
+    });
+  });
+  document.getElementById('no-results').classList.toggle('show', results.length===0);
+  document.getElementById('search-results-grid').innerHTML = results.map(({catKey,product,index}) => productCardHTML(catKey,product,index)).join('');
+}
+function clearSearch() { document.getElementById('menu-search').value=''; handleMenuSearch(''); }
+
+/* ═══════════════════════════════════════════════════
+   CATEGORY PAGE
+═══════════════════════════════════════════════════ */
+function navigateToCategory(catKey) {
+  currentCategory = catKey;
+  const meta = categoryMeta[catKey];
+  pageHistory.push('category');
+  currentPage = 'category';
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-category').classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+
+  // Breadcrumbs
+  document.getElementById('cat-breadcrumbs').innerHTML = `
+    <span class="breadcrumb" onclick="navigate('home')">Home</span>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb" onclick="navigate('menu')">Menu</span>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb current">${meta.label}</span>
+  `;
+  document.getElementById('cat-banner-img').src = meta.img;
+  document.getElementById('cat-banner-icon').textContent = meta.icon;
+  document.getElementById('cat-banner-title').textContent = meta.label;
+  document.getElementById('cat-banner-sub').textContent = meta.desc;
+
+  // Filter bar
+  const fb = document.getElementById('cat-filter-bar');
+  fb.innerHTML = menuFilters.map((f,i) => `<div class="filter-pill${i===0?' active':''}" onclick="applyFilter(this,'cat-filter-bar','${f}')">${f}</div>`).join('');
+
+  renderCategoryFiltered('All');
+}
+
+function renderCategoryFiltered(filter) {
+  const prods = menuData[currentCategory] || [];
+  const results = filter==='All' ? prods : prods.filter(p => {
+    const t = ((p.type||'')+(p.tag||'')).toLowerCase();
+    return t.includes(filter.toLowerCase());
+  });
+  const grid = document.getElementById('products-grid');
+  grid.innerHTML = results.map((p,i) => productCardHTML(currentCategory, p, menuData[currentCategory].indexOf(p))).join('');
+  document.getElementById('cat-no-results').classList.toggle('show', results.length===0);
+  animateCards(grid, '.prod-card');
+}
+
+/* ═══════════════════════════════════════════════════
+   PRODUCT DETAIL
+═══════════════════════════════════════════════════ */
+function openProductDetail(catKey, index) {
+  currentCategory = currentCategory || catKey;
+  const p = menuData[catKey][index];
+  currentProduct = {catKey, index, data: p};
+  detailQty = 1;
+  detailAddons = [];
+
+  pageHistory.push('product');
+  currentPage = 'product';
+  document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
+  document.getElementById('page-product').classList.add('active');
+  window.scrollTo({top:0, behavior:'instant'});
+
+  const meta = categoryMeta[catKey];
+  document.getElementById('prod-breadcrumbs').innerHTML = `
+    <span class="breadcrumb" onclick="navigate('home')">Home</span>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb" onclick="navigate('menu')">Menu</span>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb" onclick="navigateToCategory('${catKey}')">${meta.label}</span>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb current">${p.name}</span>
+  `;
+
+  document.getElementById('prod-detail-img').src = p.img;
+  document.getElementById('prod-detail-img').onerror = function(){ this.src='https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800'; };
+  document.getElementById('prod-detail-name').textContent = p.name;
+  document.getElementById('prod-detail-type').textContent = p.type || '';
+  document.getElementById('prod-detail-desc').textContent = p.desc || '';
+  document.getElementById('prod-detail-price').innerHTML = `<small>Rs</small> ${p.price.toLocaleString()}`;
+
+  // Badge
+  document.getElementById('prod-badge-row').innerHTML = (p.tag ? badgeHTML(p.tag) : '') + `<span class="badge" style="background:var(--bg3);color:var(--muted);border:1px solid var(--border);box-shadow:none">${meta.icon} ${meta.label}</span>`;
+
+  // Ingredients
+  document.getElementById('prod-ingredients').innerHTML = (p.ingredients||[]).map(i=>`<span class="ingr-chip">${i}</span>`).join('');
+
+  // Nutrition
+  document.getElementById('prod-nutrition').innerHTML = `
+    <tr><td>Calories</td><td>${p.calories || '—'} kcal</td></tr>
+    <tr><td>Flavor Profile</td><td>${p.flavor || '—'}</td></tr>
+    <tr><td>Allergens</td><td>${(p.allergens||[]).join(', ')||'None'}</td></tr>
+  `;
+  document.getElementById('prod-allergens').innerHTML = (p.allergens||[]).map(a=>`<span class="allergen-chip">⚠️ ${a}</span>`).join('');
+
+  // Pairings
+  document.getElementById('prod-pairings').innerHTML = (p.pairings||[]).map(pr=>`<span class="ingr-chip">✦ ${pr}</span>`).join('');
+
+  // Customization
+  renderCustomization(p);
+
+  // Qty
+  document.getElementById('detail-qty').textContent = 1;
+  updateDetailPrice();
+
+  // Related
+  renderRelated(catKey, index);
+
+  // Reset tabs
+  document.querySelectorAll('.info-tab').forEach((t,i) => t.classList.toggle('active', i===0));
+  document.querySelectorAll('.info-panel').forEach((p,i) => p.classList.toggle('active', i===0));
+}
+
+function renderCustomization(p) {
+  const cust = document.getElementById('prod-customization');
+  let html = '';
+  if(p.addons && p.addons.length) {
+    html += `<div class="cust-section">
+      <div class="cust-section-title">Add-ons & Customizations</div>
+      <div class="addon-list">
+        ${p.addons.map((a,i) => `
+          <div class="addon-item" id="addon-${i}" onclick="toggleAddon(${i},${a.price})">
+            <div class="addon-label">${a.label}</div>
+            ${a.price ? `<div class="addon-price">+Rs ${a.price}</div>` : '<div class="addon-price" style="color:var(--muted)">Free</div>'}
+            <div class="addon-check">✓</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+  }
+  // Universal customizations
+  const type = (p.type||'').toLowerCase();
+  const isBeverage = type.includes('hot')||type.includes('cold')||type.includes('tea')||type.includes('coffee')||type.includes('shake')||type.includes('mocktail');
+  if(isBeverage) {
+    html += `<div class="cust-section">
+      <div class="cust-section-title">Sugar Level</div>
+      <div class="cust-options">
+        <div class="cust-option selected" onclick="selectOption(this)">Normal</div>
+        <div class="cust-option" onclick="selectOption(this)">Less Sugar</div>
+        <div class="cust-option" onclick="selectOption(this)">No Sugar</div>
+        <div class="cust-option" onclick="selectOption(this)">Extra Sweet</div>
+      </div>
+    </div>
+    <div class="cust-section">
+      <div class="cust-section-title">Ice Level</div>
+      <div class="cust-options">
+        <div class="cust-option selected" onclick="selectOption(this)">Normal Ice</div>
+        <div class="cust-option" onclick="selectOption(this)">Less Ice</div>
+        <div class="cust-option" onclick="selectOption(this)">No Ice</div>
+        <div class="cust-option" onclick="selectOption(this)">Extra Ice</div>
+      </div>
+    </div>`;
+  }
+  const isFood = type.includes('burger')||type.includes('pizza')||type.includes('momo')||type.includes('pasta')||type.includes('sandwich');
+  if(isFood) {
+    html += `<div class="cust-section">
+      <div class="cust-section-title">Spice Level</div>
+      <div class="cust-options">
+        <div class="cust-option" onclick="selectOption(this)">Mild</div>
+        <div class="cust-option selected" onclick="selectOption(this)">Medium</div>
+        <div class="cust-option" onclick="selectOption(this)">Spicy</div>
+        <div class="cust-option" onclick="selectOption(this)">Extra Spicy 🌶️</div>
+      </div>
+    </div>`;
+  }
+  cust.innerHTML = html;
+}
+
+function toggleAddon(i, price) {
+  const el = document.getElementById('addon-' + i);
+  if(!el) return;
+  el.classList.toggle('selected');
+  const idx = detailAddons.findIndex(a => a.i === i);
+  if(idx >= 0) detailAddons.splice(idx, 1);
+  else detailAddons.push({i, price});
+  updateDetailPrice();
+}
+function selectOption(el) {
+  const parent = el.closest('.cust-section');
+  parent.querySelectorAll('.cust-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function changeDetailQty(d) {
+  detailQty = Math.max(1, detailQty + d);
+  document.getElementById('detail-qty').textContent = detailQty;
+  updateDetailPrice();
+}
+function updateDetailPrice() {
+  if(!currentProduct) return;
+  const base = currentProduct.data.price;
+  const addonSum = detailAddons.reduce((s,a) => s + a.price, 0);
+  const total = (base + addonSum) * detailQty;
+  document.getElementById('prod-add-price').textContent = `Rs ${total.toLocaleString()}`;
+}
+
+function switchTab(tabName, el) {
+  document.querySelectorAll('.info-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.info-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-' + tabName).classList.add('active');
+}
+
+function addDetailToCart() {
+  if(!currentProduct) return;
+  const p = currentProduct.data;
+  const base = p.price;
+  const addonSum = detailAddons.reduce((s,a)=>s+a.price,0);
+  const notes = document.getElementById('prod-notes').value.trim();
+  const selectedOpts = [...document.querySelectorAll('#prod-customization .cust-option.selected')].map(o=>o.textContent).join(', ');
+  const selectedAddons = detailAddons.map(a=>{
+    return p.addons[a.i]?.label || '';
+  }).filter(Boolean).join(', ');
+  const custDesc = [selectedOpts, selectedAddons, notes].filter(Boolean).join(' · ');
+  addToCart({
+    id: `${currentProduct.catKey}-${currentProduct.index}-${Date.now()}`,
+    name: p.name,
+    img: p.img,
+    type: p.type,
+    basePrice: base + addonSum,
+    qty: detailQty,
+    cust: custDesc,
+  });
+  showToast(`✅ ${p.name} added to cart!`, 'success');
+}
+
+function renderRelated(catKey, currentIndex) {
+  const prods = menuData[catKey] || [];
+  const related = prods.filter((_,i) => i !== currentIndex).slice(0,4);
+  document.getElementById('related-grid').innerHTML = related.map((p,i) => {
+    const realIdx = menuData[catKey].indexOf(p);
+    return productCardHTML(catKey, p, realIdx);
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════════════
+   CART
+═══════════════════════════════════════════════════ */
+function loadCart() {
+  try { cart = JSON.parse(localStorage.getItem('tts_cart_v2') || '[]'); } catch(e) { cart = []; }
+}
+function saveCart() { localStorage.setItem('tts_cart_v2', JSON.stringify(cart)); }
+
+function addToCart(item) {
+  cart.push(item);
+  saveCart();
+  updateCartUI();
+  openCart();
+}
+
+function quickAdd(catKey, index) {
+  const p = menuData[catKey][index];
+  addToCart({
+    id: `${catKey}-${index}-${Date.now()}`,
+    name: p.name, img: p.img, type: p.type,
+    basePrice: p.price, qty: 1, cust: '',
+  });
+  showToast(`✅ ${p.name} added!`, 'success');
+}
+
+function updateCartUI() {
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  const countEls = [document.getElementById('navCartCount'), document.getElementById('fabCartBadge')];
+  countEls.forEach(el => { if(el) { el.textContent = count; el.classList.toggle('show', count>0); } });
+  renderDrawer();
+}
+
+function cartSubtotal() { return cart.reduce((s,i)=>s+(i.basePrice*i.qty),0); }
+
+function renderDrawer() {
+  const empty = document.getElementById('drawer-empty');
+  const items = document.getElementById('drawer-items');
+  const footer = document.getElementById('drawer-footer');
+  if(!empty) return;
+  if(cart.length === 0) {
+    empty.style.display='flex'; items.style.display='none'; footer.style.display='none';
+  } else {
+    empty.style.display='none'; items.style.display='flex'; footer.style.display='block';
+    items.innerHTML = cart.map((item,i) => `
+      <div class="drawer-item">
+        <div class="drawer-item-img"><img src="${item.img}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=200'"></div>
+        <div class="drawer-item-info">
+          <div class="drawer-item-name">${item.name}</div>
+          <div class="drawer-item-variant">${item.cust || item.type || ''}</div>
+          <div class="drawer-item-controls">
+            <div class="drawer-item-price">Rs ${(item.basePrice*item.qty).toLocaleString()}</div>
+            <div class="drawer-item-qty">
+              <button class="dqbtn" onclick="changeCartQty(${i},-1)">−</button>
+              <span class="dqnum">${item.qty}</span>
+              <button class="dqbtn" onclick="changeCartQty(${i},1)">+</button>
+            </div>
+            <button class="drawer-item-remove" onclick="removeFromCart(${i})">✕</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    const sub = cartSubtotal();
+    const svc = Math.round(sub * SERVICE_CHARGE);
+    document.getElementById('d-subtotal').textContent = `Rs ${sub.toLocaleString()}`;
+    document.getElementById('d-service').textContent = `Rs ${svc.toLocaleString()}`;
+    document.getElementById('d-total').textContent = `Rs ${(sub+svc).toLocaleString()}`;
+  }
+}
+
+function changeCartQty(i, d) {
+  cart[i].qty = Math.max(1, cart[i].qty + d);
+  saveCart(); updateCartUI();
+}
+function removeFromCart(i) {
+  const name = cart[i].name;
+  cart.splice(i, 1);
+  saveCart(); updateCartUI();
+  showToast(`🗑️ ${name} removed`, '');
+}
+
+function openCart() {
+  document.getElementById('cartOverlay').classList.add('open');
+  document.getElementById('cartDrawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCart() {
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ═══════════════════════════════════════════════════
+   CART PAGE
+═══════════════════════════════════════════════════ */
+function renderCartPage() {
+  const empty = document.getElementById('cart-page-empty');
+  const content = document.getElementById('cart-page-content');
+  if(cart.length === 0) {
+    empty.style.display = 'block'; content.style.display = 'none';
+  } else {
+    empty.style.display = 'none'; content.style.display = 'grid';
+    document.getElementById('cart-page-items').innerHTML = cart.map((item,i) => `
+      <div class="cart-page-item">
+        <div class="cart-page-img"><img src="${item.img}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=200'"></div>
+        <div>
+          <div class="cart-page-item-name">${item.name}</div>
+          <div class="cart-page-item-type">${item.type || ''}</div>
+          <div class="cart-page-item-cust">${item.cust || 'No customization'}</div>
+          <div class="cart-page-item-footer">
+            <div class="cart-page-item-price">Rs ${(item.basePrice*item.qty).toLocaleString()}</div>
+            <div class="cart-page-item-controls">
+              <div class="cpi-qty">
+                <button class="cpiq-btn" onclick="changeCartQty(${i},-1);renderCartPage()">−</button>
+                <span class="cpiq-num">${item.qty}</span>
+                <button class="cpiq-btn" onclick="changeCartQty(${i},1);renderCartPage()">+</button>
+              </div>
+              <button class="cpi-remove" onclick="removeFromCart(${i});renderCartPage()">✕</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    const sub = cartSubtotal();
+    const svc = Math.round(sub * SERVICE_CHARGE);
+    document.getElementById('cart-subtotal').textContent = `Rs ${sub.toLocaleString()}`;
+    document.getElementById('cart-service').textContent = `Rs ${svc.toLocaleString()}`;
+    document.getElementById('cart-total').textContent = `Rs ${(sub+svc).toLocaleString()}`;
+    // Restore saved values
+    const savedName = localStorage.getItem('tts_name');
+    const savedTable = localStorage.getItem('tts_table');
+    if(savedName) document.getElementById('cart-name').value = savedName;
+    if(savedTable) document.getElementById('cart-table').value = savedTable;
+  }
+}
+
+function setOrderType(type) {
+  orderType = type;
+  document.getElementById('ott-dine').classList.toggle('active', type==='dine');
+  document.getElementById('ott-takeaway').classList.toggle('active', type==='takeaway');
+  document.getElementById('table-field').style.display = type==='dine' ? 'block' : 'none';
+  document.getElementById('phone-field').style.display = type==='takeaway' ? 'block' : 'none';
+}
+
+function placeOrderWA() {
+  if(cart.length === 0) { showToast('⚠️ Your cart is empty!', 'error'); return; }
+  const name = (document.getElementById('cart-name')||{}).value?.trim() || (document.getElementById('cust-name')||{}).value?.trim() || '';
+  const table = (document.getElementById('cart-table')||{}).value?.trim() || (document.getElementById('cust-table')||{}).value?.trim() || '';
+  const sub = cartSubtotal();
+  const svc = Math.round(sub * SERVICE_CHARGE);
+  const total = sub + svc;
+  let msg = `🍵 *New Order — The Tea Stage*\n`;
+  msg += `━━━━━━━━━━━━━━━━━━\n`;
+  if(name) msg += `👤 *Name:* ${name}\n`;
+  if(orderType === 'dine' && table) msg += `🪑 *Table:* ${table}\n`;
+  if(orderType === 'takeaway') msg += `🥡 *Order Type:* Takeaway\n`;
+  msg += `━━━━━━━━━━━━━━━━━━\n`;
+  cart.forEach((item, i) => {
+    msg += `\n*${i+1}. ${item.name}* × ${item.qty}\n`;
+    if(item.cust) msg += `   ↳ ${item.cust}\n`;
+    msg += `   Rs ${(item.basePrice * item.qty).toLocaleString()}\n`;
+  });
+  msg += `\n━━━━━━━━━━━━━━━━━━\n`;
+  msg += `💰 *Subtotal:* Rs ${sub.toLocaleString()}\n`;
+  msg += `🏷️ *Service (10%):* Rs ${svc.toLocaleString()}\n`;
+  msg += `✅ *Total: Rs ${total.toLocaleString()}*\n`;
+  msg += `━━━━━━━━━━━━━━━━━━\n`;
+  msg += `_Order placed via theteastage.com_`;
+  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  showToast('✅ Redirecting to WhatsApp!', 'success');
+}
+
+/* ═══════════════════════════════════════════════════
+   GALLERY
+═══════════════════════════════════════════════════ */
+function renderGallery() {
+  const masonry = document.getElementById('gallery-masonry');
+  if(!masonry) return;
+  masonry.innerHTML = galleryImages.map((img, i) => `
+    <div class="gallery-item" onclick="openLightbox(${i})">
+      <img src="${img}" alt="Gallery ${i+1}" loading="lazy">
+    </div>
+  `).join('');
+}
+function openLightbox(i) {
+  lightboxIndex = i;
+  document.getElementById('lightbox-img').src = galleryImages[i];
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e) {
+  if(!e || e.target === document.getElementById('lightbox') || e.currentTarget === document.getElementById('lightbox-close')) {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+function lightboxNav(dir) {
+  lightboxIndex = (lightboxIndex + dir + galleryImages.length) % galleryImages.length;
+  document.getElementById('lightbox-img').src = galleryImages[lightboxIndex];
+}
+
+/* ═══════════════════════════════════════════════════
+   FAQ
+═══════════════════════════════════════════════════ */
+function renderFAQs() {
+  document.getElementById('faq-list').innerHTML = faqs.map((f,i) => `
+    <div class="faq-item" id="faq-${i}">
+      <div class="faq-q" onclick="toggleFAQ(${i})">
+        <span>${f.q}</span>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">${f.a}</div></div>
+    </div>
+  `).join('');
+}
+function toggleFAQ(i) {
+  const item = document.getElementById('faq-'+i);
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+  if(!wasOpen) item.classList.add('open');
+}
+
+/* ═══════════════════════════════════════════════════
+   MOBILE NAV
+═══════════════════════════════════════════════════ */
+function toggleMobileNav() {
+  mobileNavOpen = !mobileNavOpen;
+  document.getElementById('mobileNav').classList.toggle('open', mobileNavOpen);
+  document.body.style.overflow = mobileNavOpen ? 'hidden' : '';
+  const [l1,l2,l3] = ['hl1','hl2','hl3'].map(id => document.getElementById(id));
+  if(mobileNavOpen) {
+    l1.style.transform='rotate(45deg) translate(4px,4.5px)'; l2.style.opacity='0'; l3.style.transform='rotate(-45deg) translate(4px,-4.5px)';
+  } else {
+    l1.style.transform=''; l2.style.opacity=''; l3.style.transform='';
+  }
+}
+function closeMobileNav() {
+  mobileNavOpen = false;
+  document.getElementById('mobileNav').classList.remove('open');
+  document.body.style.overflow = '';
+  ['hl1','hl2','hl3'].forEach(id => { const el=document.getElementById(id); el.style.transform=''; el.style.opacity=''; });
+}
+
+/* ═══════════════════════════════════════════════════
+   WAITER MODAL
+═══════════════════════════════════════════════════ */
+function openWaiterModal() {
+  document.getElementById('waiterModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  const saved = localStorage.getItem('tts_table_waiter');
+  if(saved) document.getElementById('waiter-table').value = saved;
+  document.getElementById('fabBell').classList.add('ringing');
+  setTimeout(() => document.getElementById('fabBell').classList.remove('ringing'), 700);
+}
+function closeWaiterModal() {
+  document.getElementById('waiterModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function confirmCallWaiter() {
+  const t = document.getElementById('waiter-table').value.trim();
+  if(!t) { showToast('⚠️ Please enter your table number', 'error'); return; }
+  localStorage.setItem('tts_table_waiter', t);
+  closeWaiterModal();
+  const msg = `🔔 *Waiter Needed!*\n\n🪑 Table: *${t}*\nPlease attend to this table.\n\n— The Tea Stage`;
+  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  showToast(`✅ Waiter called for Table ${t}!`, 'success');
+}
+document.getElementById('waiterModal').addEventListener('click', e => { if(e.target===e.currentTarget) closeWaiterModal(); });
+document.getElementById('waiter-table').addEventListener('keydown', e => { if(e.key==='Enter') confirmCallWaiter(); });
+
+/* ═══════════════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════════════ */
+function sendContactMessage() {
+  const name = document.getElementById('contact-name').value.trim();
+  const email = document.getElementById('contact-email').value.trim();
+  const subject = document.getElementById('contact-subject').value.trim();
+  const message = document.getElementById('contact-message').value.trim();
+  if(!name || !message) { showToast('⚠️ Please fill in name and message', 'error'); return; }
+  const msg = `📩 *Message from Website*\n\n👤 *Name:* ${name}\n📧 *Email:* ${email||'—'}\n📌 *Subject:* ${subject||'General'}\n\n💬 *Message:*\n${message}\n\n_Via The Tea Stage Website_`;
+  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  showToast('✅ Message sent via WhatsApp!', 'success');
+  ['contact-name','contact-email','contact-subject','contact-message'].forEach(id => { document.getElementById(id).value=''; });
+}
+
+/* ═══════════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════════ */
+let toastTimer;
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (type?' '+type:'') + ' show';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* ═══════════════════════════════════════════════════
+   THEME
+═══════════════════════════════════════════════════ */
+function initTheme() {
+  const saved = localStorage.getItem('tts_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.getElementById('themeBtn').textContent = saved==='dark'?'🌙':'☀️';
+}
+document.getElementById('themeBtn').addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  document.getElementById('themeBtn').textContent = next==='dark'?'🌙':'☀️';
+  localStorage.setItem('tts_theme', next);
+});
+
+/* ═══════════════════════════════════════════════════
+   NAVBAR SCROLL
+═══════════════════════════════════════════════════ */
+let lastSY = 0;
+window.addEventListener('scroll', () => {
+  const sy = window.scrollY;
+  const nav = document.getElementById('navbar');
+  nav.classList.toggle('scrolled', sy > 40);
+  nav.classList.toggle('hidden', sy > lastSY + 6 && sy > 200);
+  if(sy < lastSY || sy < 100) nav.classList.remove('hidden');
+  lastSY = sy;
+  document.getElementById('fabTop').classList.toggle('show', sy > 400);
+  const heroEl = document.getElementById('heroParallax');
+  if(heroEl && sy < window.innerHeight * 1.5) heroEl.style.transform = `translateY(${sy * 0.28}px)`;
+}, {passive:true});
+
+/* ═══════════════════════════════════════════════════
+   REVEAL
+═══════════════════════════════════════════════════ */
+function initReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, {threshold:.08});
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => obs.observe(el));
+}
+
+function animateCards(container, selector) {
+  setTimeout(() => {
+    container.querySelectorAll(selector).forEach((c,i) => {
+      c.style.opacity='0'; c.style.transform='translateY(24px)';
+      c.style.transition=`opacity .5s ease ${i*0.06}s,transform .5s ease ${i*0.06}s`;
+      const ob = new IntersectionObserver(entries => {
+        entries.forEach(e => { if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';ob.unobserve(e.target);}});
+      }, {threshold:.05});
+      ob.observe(c);
+    });
+  }, 50);
+}
+
+/* ═══════════════════════════════════════════════════
+   KEYBOARD
+═══════════════════════════════════════════════════ */
+document.addEventListener('keydown', e => {
+  if(e.key==='Escape') { closeCart(); closeWaiterModal(); closeLightbox({target:document.getElementById('lightbox')}); }
+  if(e.key==='ArrowLeft' && document.getElementById('lightbox').classList.contains('open')) lightboxNav(-1);
+  if(e.key==='ArrowRight' && document.getElementById('lightbox').classList.contains('open')) lightboxNav(1);
+});
+
+/* ═══════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════ */
+(function init() {
+  initTheme();
+  loadCart();
+  updateCartUI();
+  initFooters();
+  renderFeatured();
+  renderHomeCats();
+  renderReviews();
+  renderGalleryStrip();
+  renderGallery();
+  renderFAQs();
+  initReveal();
+  setTimeout(initReveal, 600);
+})();
+</script>
+</body>
+</html>
